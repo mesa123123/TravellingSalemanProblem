@@ -17,7 +17,7 @@ class ProblemMatrix:
         for i in range(0,self.size):
             for j in range(self.size-1,0,-1):
                 if i != j :
-                    randWeighting = rnd.randint(1,self.longest)
+                    randWeighting = round(rnd.uniform(1,self.longest),3)
                     city_weights[i][j] = randWeighting
                     city_weights[j][i] = randWeighting
         self.city_matrix = city_weights
