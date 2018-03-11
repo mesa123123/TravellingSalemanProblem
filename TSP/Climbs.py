@@ -5,6 +5,7 @@ def hill_climb(optimization_goal,number_of_cities,route,roads,):
     current_best_distance = sum(distance_check(route, roads, number_of_cities))
     current_best_route = route
 
+    #if the current best distance is already optimal the loop will be skipped entirely
     while current_best_distance > optimization_goal:
         # keep tabs on the part of the list you're messing with
         swapped_member = 2
@@ -24,8 +25,35 @@ def hill_climb(optimization_goal,number_of_cities,route,roads,):
         # and then loop around       - Distance checking loop ends
     return current_best_route
 
-def steep_climb():
-    pass
+
+def steep_climb(optimization_goal,number_of_cities,route,roads):
+    current_best_distance = sum(distance_check(route, roads, number_of_cities))
+    current_best_route = route
+    alt_routes = {}
+
+    #check if optimal
+    while current_best_distance < optimization_goal:
+        swapped_member = 2
+    #instantiate a key value pair for the routes and their distances
+        while swapped_member < number_of_cities:
+            temp_route = swap_member(route,swapped_member)
+            temp_distance = sum(distance_check(temp_route,roads,number_of_cities))
+            alt_routes[swapped_member] = temp_route
+            swapped_member += 1
+
+        #sort the dictionary by the distances
+
+
+        for temp_route in swapped_member:
+            print(temp_route)
+        #take lowest route
+            #check if its shorter than original route
+            #if so check if its optimal
+                #if not keep on going
+                #if so return
+            #if not you're done here
+
+    return current_best_route
 
 
 def distance_check(route,roads,number_of_cities):
