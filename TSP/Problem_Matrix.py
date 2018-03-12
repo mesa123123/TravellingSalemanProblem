@@ -17,9 +17,13 @@ class ProblemMatrix:
         for i in range(0,self.size):
             for j in range(self.size-1,0,-1):
                 if i != j :
-                    randWeighting = round(rnd.uniform(1,self.longest),3)
+                    randWeighting = round(rnd.uniform(1, self.longest), 3)
                     city_weights[i][j] = randWeighting
                     city_weights[j][i] = randWeighting
         self.city_matrix = city_weights
 
-
+    def random_permutation(list, r=None):
+        #    "Random selection from itertools.permutations(iterable, r)"
+        pool = tuple(list)
+        r = len(pool) if r is None else r
+        return tuple(rnd.sample(pool, r))
