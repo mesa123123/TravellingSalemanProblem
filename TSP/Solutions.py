@@ -22,12 +22,10 @@ journey = hill_climb(optimization_goal,number_of_cities,route,roads)
 journey2 = hill_climb(optimization_goal,number_of_cities,route,roads)
 xValues = range(0,len(max(journey,journey2)))
 optimization_line = [optimization_goal]*len(xValues)
-
 #figure out how to make the lengths of journey and journey2 the same, so the shorter one just extends its final value
 
-
-pyl.plot(xValues, journey, 'b--')
 pyl.plot(xValues,optimization_line, 'r-')
+pyl.plot(xValues, journey, 'b--')
 pyl.plot(xValues, journey2, 'c--')
 pyl.xlabel('Search Steps')
 pyl.ylabel('Distance Found')
