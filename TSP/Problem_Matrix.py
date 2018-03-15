@@ -4,11 +4,11 @@ import random as rnd
 
 class ProblemMatrix:
     city_matrix = None
+    road_rule = None
 
     def __init__(self, size: int, longest: int):
         self.size = size
         self.longest = longest
-
 
 
     def Make_Matrix(self):
