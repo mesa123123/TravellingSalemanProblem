@@ -81,10 +81,7 @@ def distance_check(route,roads,number_of_cities):
 
 
 def swap_member(route, member):
-    try:
         temp = route[member]
         route[member] = route[member + 1]
         route[member + 1] = temp
         return route
-    except IndexError:
-        return "Can't Swap that shit", member

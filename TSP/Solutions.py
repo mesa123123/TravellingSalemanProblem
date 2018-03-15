@@ -2,14 +2,13 @@ from TSP import Problem_Matrix
 from TSP.Climbs import hill_climb, steep_climb
 from TSP.Route import Route
 import pylab as pyl
-from TSP.Problem_Matrix import ProblemMatrix
 
 
 
 #Get all cities that the salesman must travel to; in other words his hometown is 1 but not in the collection
 number_of_cities = 50
-optimization_goal = number_of_cities*2
 longest_distance = 4
+optimization_goal = number_of_cities*(longest_distance/2)
 cities = [x for x in range(2,number_of_cities+1)]
 
 
@@ -25,7 +24,6 @@ steep_route = Route(paver, cities, False)
 
 journey = hill_climb(optimization_goal,number_of_cities,hill_route.route,roads)
 journey2 = steep_climb(optimization_goal,number_of_cities,steep_route.route,roads)
-print(journey2)
 xValues = range(0,max(len(journey),len(journey2)))
 optimization_line = [optimization_goal]*len(xValues)
 #figure out how to make the lengths of journey and journey2 the same, so the shorter one just extends its final value
