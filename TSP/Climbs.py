@@ -2,7 +2,7 @@ from sys import maxsize
 from TSP.Problem_Matrix import ProblemMatrix
 
 
-def hill_climb(optimization_goal,number_of_cities,route,roads,):
+def hill_climb(optimization_goal,number_of_cities,route,roads):
     current_best_distance = sum(distance_check(route, roads, number_of_cities))
     story = []
     story.append(sum(distance_check(route, roads, number_of_cities)))
@@ -55,8 +55,21 @@ def steep_climb(optimization_goal,number_of_cities,route,roads):
                 #check if its shorter than original route
         else:
             optimization_goal = maxsize
-
     return story
+
+
+def repeated_climb(optimization_goal, number_of_cities, route, roads, resets):
+    story = []
+    one_hill = hill_climb(optimization_goal, number_of_cities, route, roads)
+    for distance in one_hill:
+        story.append(distance)
+    for i in range(0, resets):
+        route = list(ProblemMatrix.random_permutation(route))
+        one_hill = hill_climb(optimization_goal, number_of_cities, route, roads)
+        for distance in one_hill:
+            story.append(distance)
+    return story
+
 
 
 def distance_check(route,roads,number_of_cities):
