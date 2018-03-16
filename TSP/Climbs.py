@@ -12,11 +12,11 @@ def hill_climb(optimization_goal, route, roads):
         # keep tabs on the part of the list you're messing with
         swapped_member = 2
         while swapped_member < int(len(roads)) - 3:
-            temp_distance = next_distance(route, swapped_member, roads)
-            if current_best_distance > temp_distance:
-                story.append(temp_distance)
-                current_best_distance = temp_distance
-                route = swap_member(route, swapped_member)
+            alt_route = next_distance(route, swapped_member, roads)
+            if alt_route[1] < current_best_distance:
+                story.append(alt_route[1])
+                current_best_distance = alt_route[1]
+                route = alt_route[0]
                 break
             else:
                 swapped_member += 1
@@ -44,10 +44,10 @@ def steep_climb(optimization_goal, route, roads):
     story.append(distance_check(route, roads))
     while current_best_distance > optimization_goal:
         alt_routes = best_distance(route, roads)
-        if alt_routes[0] < current_best_distance:
+        if alt_routes[1] < current_best_distance:
             story.append(current_best_distance)
-            current_best_distance = alt_routes[0]
-            route = swap_member(route,alt_routes[1])
+            current_best_distance = alt_routes[1]
+            route = alt_routes[0]
         else:
             optimization_goal = maxsize
     return story
