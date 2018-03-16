@@ -1,9 +1,11 @@
 from TSP.Climb_Tools import *
+from TSP.Problem_Matrix import ProblemMatrix
 import random as rnd
 from math import exp
 
 
-def simulated_annealing(optimization_goal, route, roads, init_temp):
+
+def simulated_annealing(route, roads, init_temp):
     current_best_distance = distance_check(route, roads)
     temp = init_temp
     final_temp = init_temp//30
@@ -31,3 +33,15 @@ def cool(temp, final_temp):
 
 def acceptance_probability(cost, temp):
     return exp(-cost/temp)
+
+def repeated_anneal(route, roads, init_temp, resets):
+    story = []
+    one_hill = simulated_annealing(route, roads, init_temp)
+    for distance in one_hill:
+        story.append(distance)
+    for i in range(0, resets):
+        route = list(ProblemMatrix.random_permutation(route))
+        one_hill = simulated_annealing(route, roads, init_temp)
+        for distance in one_hill:
+            story.append(distance)
+    return story

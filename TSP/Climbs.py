@@ -25,6 +25,21 @@ def hill_climb(optimization_goal, route, roads):
     return story
 
 
+def steep_climb(optimization_goal, route, roads):
+    current_best_distance = distance_check(route, roads)
+    story = []
+    story.append(current_best_distance)
+    while current_best_distance > optimization_goal:
+        alt_route = best_distance(route, roads)
+        if alt_route[1] < current_best_distance:
+            story.append(alt_route[1])
+            current_best_distance = alt_route[1]
+            route = alt_route[0]
+        else:
+            optimization_goal = maxsize
+    return story
+
+
 def repeated_climb(optimization_goal, route, roads, resets, steep = False):
     story = []
     if not steep:
@@ -43,32 +58,5 @@ def repeated_climb(optimization_goal, route, roads, resets, steep = False):
             story.append(distance)
     return story
 
-
-def steep_climb(optimization_goal, route, roads):
-    current_best_distance = distance_check(route, roads)
-    story = []
-    story.append(current_best_distance)
-    while current_best_distance > optimization_goal:
-        alt_route = best_distance(route, roads)
-        if alt_route[1] < current_best_distance:
-            story.append(alt_route[1])
-            current_best_distance = alt_route[1]
-            route = alt_route[0]
-        else:
-            optimization_goal = maxsize
-    return story
-
-
-# def repeated_steep_climb(optimization_goal, route, roads, resets):
-#     story = []
-#     one_hill = steep_climb(optimization_goal, route, roads)
-#     for distance in one_hill:
-#         story.append(distance)
-#     for i in range(0, resets):
-#         route = list(ProblemMatrix.random_permutation(route))
-#         one_hill = steep_climb(optimization_goal, route, roads)
-#         for distance in one_hill:
-#             story.append(distance)
-#     return story
 
 
