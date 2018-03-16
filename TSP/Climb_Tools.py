@@ -14,7 +14,6 @@ def best_distance(route, roads):
         temp_stats = next_distance(route, swap_member, roads)
         alt_routes[swap_member].append(temp_stats[0])
         alt_routes[swap_member].append(temp_stats[1])
-        alt_routes[swap_member].append(swap_member)
         swap_member += 1
     # sort the alternate by the distances
     alt_routes = sorted(alt_routes, key=lambda x: x[1])
