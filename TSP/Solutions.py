@@ -4,19 +4,23 @@ from TSP.Route import Route
 from TSP.See_Salesman import plot_travels
 from TSP.Simulated_Annealing import *
 
+
+#DON'T TOUCH THIS PLEASE
 def optimizer(optimization_show, number_of_cities, longest_distance):
     if optimization_show:
         return number_of_cities*(longest_distance//2)
     else:
         return 0
 
-#Get all cities that the salesman must travel to; in other words his hometown is 1 but not in the collection
+#The variables that control the outputs
 same_start = True
 optimization_show = True
-number_of_cities = 100
+number_of_cities = 50
 longest_distance = 4
 optimization_goal = number_of_cities*(longest_distance/2)
-optimization_show = optimizer(optimization_show, number_of_cities, longest_distance)
+optimization_show = optimizer(optimization_show, number_of_cities, longest_distance)  #Shows whether or not we want the
+                                                                                      # optimization goal to show up
+                                                                                      # on the graph
 cities = [x for x in range(2,number_of_cities+1)]
 repeats = number_of_cities//5
 init_temp = number_of_cities*repeats
@@ -34,6 +38,7 @@ repeated_hill_route = Route(paver, cities, same_start)
 repeated_steep_route = Route(paver, cities, same_start)
 annealing_route = Route(paver, cities, same_start)
 
+#Implemennts the Algorithms and Plots them on a graph
 journeys = []
 journeys.append([hill_climb(optimization_goal , hill_route.route, roads), 'hill_climb'])
 journeys.append([steep_climb(optimization_goal, steep_route.route, roads), 'steep_climb'])
