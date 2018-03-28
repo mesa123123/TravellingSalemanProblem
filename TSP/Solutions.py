@@ -40,11 +40,11 @@ annealing_route = Route(paver, cities, same_start)
 
 #Implemennts the Algorithms and Plots them on a graph
 journeys = []
-journeys.append([hill_climb(optimization_goal , hill_route.route, roads), 'hill_climb'])
-journeys.append([steep_climb(optimization_goal, steep_route.route, roads), 'steep_climb'])
-journeys.append([simulated_annealing(annealing_route.route, roads, init_temp), 'simulated_annealing'])
-#journeys.append([repeated_climb(optimization_goal, repeated_hill_route.route, roads, repeats), 'repeat_hill'])
-#journeys.append([repeated_climb(optimization_goal, repeated_steep_route.route, roads, repeats, True), 'steep_repeat'])
-#journeys.append([repeated_anneal(annealing_route.route, roads, init_temp, repeats),'repeated_simulated_annealing'])
+#journeys.append([hill_climb(optimization_goal , hill_route.route, roads), 'hill_climb'])
+#journeys.append([steep_climb(optimization_goal, steep_route.route, roads), 'steep_climb'])
+#journeys.append([simulated_annealing(annealing_route.route, roads, init_temp), 'simulated_annealing'])
+journeys.append([repeated_climb(optimization_goal, repeated_hill_route.route, roads, repeats), 'repeat_hill'])
+journeys.append([repeated_climb(optimization_goal, repeated_steep_route.route, roads, repeats, True), 'steep_repeat'])
+journeys.append([repeated_anneal(annealing_route.route, roads, init_temp, repeats),'repeated_simulated_annealing'])
 plot_travels(journeys, optimization_goal, optimization_show)
 

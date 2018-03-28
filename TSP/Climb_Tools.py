@@ -27,7 +27,7 @@ def distance_check(route,roads):
     try:
         distance.append(roads[1][route[0]])
     except IndexError:
-        print(route[0])
+        print("Error: ", route[0])
     for i in range(1,number_of_cities-1):
         if i < number_of_cities-1:
             a = route[i-1]
@@ -38,7 +38,7 @@ def distance_check(route,roads):
         try:
             distance.append(roads[a][b])
         except IndexError:
-            print(a, " ", b)
+            print("Error: ", a, " ", b)
     return sum(distance)
 
 
