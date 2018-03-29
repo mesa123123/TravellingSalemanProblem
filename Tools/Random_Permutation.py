@@ -1,12 +1,12 @@
 import random as rnd
-import itertools as iter
 
-def send_all(members):
-    x = list(iter.permutations(members))
-    rnd.shuffle(x)
-    return x
 
-def send_one(members):
-    x = list(iter.permutations(members))
-    y = x[rnd.randint(0,len(x))]
-    return y
+def random_permutation(iterable, r=None):
+    pool = tuple(iterable)
+    r = len(pool) if r is None else r
+    return tuple(rnd.sample(pool, r))
+
+
+def random_shuffle(members):
+    rnd.shuffle(members)
+    return tuple(members)

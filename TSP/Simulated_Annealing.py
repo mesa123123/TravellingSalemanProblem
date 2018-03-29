@@ -1,5 +1,6 @@
-from TSP.Climb_Tools import *
-from TSP.Problem_Matrix import ProblemMatrix
+from Tools.Problem_Matrix import ProblemMatrix
+from Tools.Distance_check import distance_check
+from Tools.Swap import *
 import random as rnd
 from math import exp
 

@@ -1,7 +1,7 @@
 from sys import maxsize
-from TSP.Problem_Matrix import ProblemMatrix
-from TSP.Climb_Tools import *
-
+from Tools.Problem_Matrix import ProblemMatrix
+from Tools.Swap import *
+from Tools.Distance_check import distance_check
 
 def hill_climb(optimization_goal, route, roads):
     current_best_distance = distance_check(route, roads)
