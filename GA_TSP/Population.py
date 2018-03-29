@@ -1,4 +1,4 @@
-from GA_TSP import Random_Permutation
+from Tools import Random_Permutation
 from TSP.Climb_Tools import distance_check
 from TSP.Problem_Matrix import ProblemMatrix
 

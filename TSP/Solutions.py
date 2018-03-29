@@ -1,7 +1,7 @@
 from TSP import Problem_Matrix
 from TSP.Climbs import *
 from TSP.Route import Route
-from TSP.See_Salesman import plot_travels
+from Tools.See_Salesman import plot_travels
 from TSP.Simulated_Annealing import *
 
 
