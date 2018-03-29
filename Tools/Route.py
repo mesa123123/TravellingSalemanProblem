@@ -1,5 +1,5 @@
-import Tools.Problem_Matrix as P_M
 from Tools.Random_Permutation import random_permutation
+
 
 class Route:
     route = None
@@ -10,4 +10,3 @@ class Route:
             self.route = list(random_permutation(cities))
         else:
             self.route = list(paver.road_rule)
-

@@ -1,5 +1,5 @@
-from Tools.Problem_Matrix import ProblemMatrix
 from Tools.Distance_check import distance_check
+from Tools.Random_Permutation import random_permutation
 from Tools.Swap import *
 import random as rnd
 from math import exp
@@ -41,7 +41,7 @@ def repeated_anneal(route, roads, init_temp, resets):
     for distance in one_hill:
         story.append(distance)
     for i in range(0, resets):
-        route = list(ProblemMatrix.random_permutation(route))
+        route = list(random_permutation(route))
         one_hill = simulated_annealing(route, roads, init_temp)
         for distance in one_hill:
             story.append(distance)

@@ -1,5 +1,5 @@
 from sys import maxsize
-from Tools.Problem_Matrix import ProblemMatrix
+from Tools.Random_Permutation import random_permutation
 from Tools.Swap import *
 from Tools.Distance_check import distance_check
 
@@ -49,7 +49,7 @@ def repeated_climb(optimization_goal, route, roads, resets, steep = False):
     for distance in one_hill:
         story.append(distance)
     for i in range(0, resets):
-        route = list(ProblemMatrix.random_permutation(route))
+        route = list(random_permutation(route))
         if not steep:
             one_hill = hill_climb(optimization_goal, route, roads)
         else:

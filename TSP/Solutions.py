@@ -1,7 +1,6 @@
 from Tools import Problem_Matrix
 from TSP.Climbs import *
 from Tools.Route import Route
-from Tools.Random_Permutation import random_permutation
 from Tools.See_Salesman import plot_travels
 from TSP.Simulated_Annealing import *
 
@@ -30,8 +29,8 @@ init_temp = number_of_cities*repeats
 
 # set up the roads between the cities
 paver = Problem_Matrix.ProblemMatrix(number_of_cities + 1, longest_distance)
-paver.Make_Matrix()
 paver.road_rule = list(random_permutation(cities))
+paver.make_matrix()
 roads = paver.city_matrix
 
 # set up the routes, I've got many of them just in case you'd like to radomize the start points
