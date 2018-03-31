@@ -13,7 +13,7 @@ def simulated_annealing(route, roads, init_temp):
     story.append(current_best_distance)
     #if the current best distance is already optimal the loop will be skipped entirely
     swap_roof = len(route) - 2
-    swapped_point = rnd.randint(0,swap_roof)
+    swapped_point = rnd.randint(0, swap_roof)
     while temp >= final_temp*2:
         alt_route = next_distance(route, swapped_point, roads)
         cost = alt_route[1] - current_best_distance

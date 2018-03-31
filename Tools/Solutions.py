@@ -12,8 +12,6 @@ def optimizer(optimize_goal, city_number, long_roads):
         return 0
 
 # The variables that control the outputs
-
-
 same_start = True
 optimization_show = True
 number_of_cities = 50
@@ -28,7 +26,7 @@ repeats = number_of_cities//5
 init_temp = number_of_cities*repeats
 
 # set up the roads between the cities
-paver = Problem_Matrix.ProblemMatrix(number_of_cities + 1, longest_distance)
+paver = Problem_Matrix.ProblemMatrix(number_of_cities, longest_distance)
 paver.road_rule = list(random_permutation(cities))
 paver.make_matrix()
 roads = paver.city_matrix

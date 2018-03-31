@@ -10,7 +10,7 @@ class ProblemMatrix:
     longest = None
 
     def __init__(self, size: int, longest: int):
-        self.size = size
+        self.size = size + 1
         self.longest = longest
         cities_model = [x for x in range(2, size)]
         self.road_rule = random_permutation(cities_model)
