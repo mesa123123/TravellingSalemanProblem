@@ -23,6 +23,6 @@ def best_distance(route, roads):
 
 def next_distance(route, member, roads):
     stats = []
-    stats.append(swap_member([i for i in route], member))
+    stats.append(swap_member([i for i in route], 7))
     stats.append(Dcheck.distance_check(stats[0], roads))
     return stats

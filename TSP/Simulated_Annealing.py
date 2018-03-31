@@ -5,15 +5,46 @@ import random as rnd
 from math import exp
 
 
-
 def simulated_annealing(route, roads, init_temp):
     current_best_distance = distance_check(route, roads)
     temp = init_temp
-    final_temp = init_temp//30
+    final_temp = init_temp/30
     story = []
     story.append(current_best_distance)
     #if the current best distance is already optimal the loop will be skipped entirely
-    while temp >= final_temp:
+    swap_roof = len(route) - 2
+    swapped_point = rnd.randint(0,swap_roof)
+    while temp > final_temp*2:
+        alt_route = next_distance(route, swapped_point, roads)
+        cost = alt_route[1] - current_best_distance
+        if cost < 0:
+            story.append(alt_route[1])
+            current_best_distance = alt_route[1]
+            route = alt_route[0]
+            swapped_point = rnd.randint(0,swap_roof)
+            temp = cool(temp, final_temp)
+        elif rnd.uniform(0,1) < acceptance_probability(cost, temp):
+            story.append(alt_route[1])
+            current_best_distance = alt_route[1]
+            route = alt_route[0]
+            swapped_point = rnd.randint(0,swap_roof)
+            temp = cool(temp, final_temp)
+        else:
+            if(swapped_point < swap_roof):
+                swapped_point += 1
+            else:
+                swapped_point = rnd.randint(0,swap_roof)
+    return story
+
+
+def steep_simulated_annealing(route, roads, init_temp):
+    current_best_distance = distance_check(route, roads)
+    temp = init_temp
+    final_temp = init_temp/30
+    story = []
+    story.append(current_best_distance)
+    #if the current best distance is already optimal the loop will be skipped entirely
+    while temp > final_temp*2:
         alt_route = best_distance(route, roads)
         cost = alt_route[1] - current_best_distance
         if cost < 0:
@@ -46,3 +77,5 @@ def repeated_anneal(route, roads, init_temp, resets):
         for distance in one_hill:
             story.append(distance)
     return story
+
+

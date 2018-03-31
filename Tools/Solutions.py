@@ -1,6 +1,6 @@
 from Tools import Problem_Matrix
-from TSP.Climbs import *
 from Tools.Route import Route
+from TSP.Climbs import *
 from Tools.See_Salesman import plot_travels
 from TSP.Simulated_Annealing import *
 
@@ -34,18 +34,19 @@ paver.make_matrix()
 roads = paver.city_matrix
 
 # set up the routes, I've got many of them just in case you'd like to radomize the start points
-hill_route = Route(paver, cities, same_start)
-steep_route = Route(paver, cities, same_start)
-repeated_hill_route = Route(paver, cities, same_start)
-repeated_steep_route = Route(paver, cities, same_start)
-annealing_route = Route(paver, cities, same_start)
+# hill_route = Route(cities, same_start, paver)
+# steep_route = Route(cities, same_start, paver)
+# repeated_hill_route = Route(cities, same_start, paver)
+# repeated_steep_route = Route(cities, same_start, paver)
+annealing_route = Route(cities, same_start, paver)
 
 # Implemennts the Algorithms and Plots them on a graph
 journeys = list()
 # journeys.append([hill_climb(optimization_goal , hill_route.route, roads), 'hill_climb'])
 # journeys.append([steep_climb(optimization_goal, steep_route.route, roads), 'steep_climb'])
-# journeys.append([simulated_annealing(annealing_route.route, roads, init_temp), 'simulated_annealing'])
-journeys.append([repeated_climb(optimization_goal, repeated_hill_route.route, roads, repeats), 'repeat_hill'])
-journeys.append([repeated_climb(optimization_goal, repeated_steep_route.route, roads, repeats, True), 'steep_repeat'])
-journeys.append([repeated_anneal(annealing_route.route, roads, init_temp, repeats), 'repeated_simulated_annealing'])
+journeys.append([simulated_annealing(annealing_route.route, roads, init_temp), 'simulated_annealing'])
+# journeys.append([steep_simulated_annealing(annealing_route.route,roads,init_temp),"steep_annealing"])
+# journeys.append([repeated_climb(optimization_goal, repeated_hill_route.route, roads, repeats), 'repeat_hill'])
+# journeys.append([repeated_climb(optimization_goal, repeated_steep_route.route, roads, repeats, True), 'steep_repeat'])
+# journeys.append([repeated_anneal(annealing_route.route, roads, init_temp, repeats), 'repeated_simulated_annealing'])
 plot_travels(journeys, optimization_goal, optimization_show)
