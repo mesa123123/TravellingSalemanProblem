@@ -1,15 +1,16 @@
 from random import randint
 
 
-def partially_mapped_crossover(p1, p2, only_child = False):
-    #cuts the parent genomes and switches the genes within the cuts
-    first_cut = randint(0,len(p1)//2 - 1)
-    second_cut = randint(len(p1)//2,len(p1))
+def partially_mapped_crossover(p1, p2, only_child=False):
+    # cuts the parent genomes and switches the genes within the cuts
+    # must make first cut at atleast 1 because otherwise swapping algorithm will not work
+    first_cut = randint(1, len(p1)//2 - 1)
+    second_cut = randint(len(p1)//2, len(p1))
     cut_genome = random_cut(p1, p2, first_cut, second_cut)
-    #Work out any genes that have doubled up, in this context stop the children from visiting cities more than once
-    c1 = [cut_genome[0][i] for i in range(0,len(cut_genome[0]))]
+    # Work out any genes that have doubled up, in this context stop the children from visiting cities more than once
+    c1 = [cut_genome[0][i] for i in range(0, len(cut_genome[0]))]
     c2 = [cut_genome[1][i] for i in range(0, len(cut_genome[1]))]
-    #switch the genes outside the cuts for C1
+    # switch the genes outside the cuts for C1 so there are no repeated genes
     rearrange = True
     i = first_cut
     j = 0
@@ -27,10 +28,10 @@ def partially_mapped_crossover(p1, p2, only_child = False):
             j = 0
         if i == second_cut:
             rearrange = False
-    #iron out kinks in C2
+    # iron out kinks in C2 so there are no repeated genes
+    rearrange = True
     i = first_cut
     j = 0
-    rearrange = True
     while (rearrange):
         if c2[i] == c2[j]:
             c2[j] = c1[i]
@@ -59,6 +60,7 @@ def order_crossover():
 def cycle_crossover():
     pass
 
+
 #function that allows the genes within the cut to switch over in their children
 def random_cut(p1, p2, first_cut, second_cut):
     c1 = [0]*len(p1)
@@ -76,7 +78,15 @@ def random_cut(p1, p2, first_cut, second_cut):
         c2[i] = p2[i]
     return [c1, c2]
 
-p1 = [1,3,2,6,4,5,7,9,8]
-p2 = [2,4,5,8,7,6,9,1,3]
 
-partially_mapped_crossover(p1,p2,True)
+# these were used in testing purposes
+# p1 = [1,3,2,6,4,5,7,9,8]
+# p2 = [2,4,5,8,7,6,9,1,3]
+#
+# children = partially_mapped_crossover(p1, p2, False)
+# print(children[0][1])
+# print(children[1][1])
+# children[0][1].sort()
+# children[1][1].sort()
+# print(children[0][1])
+# print(children[1][1])
