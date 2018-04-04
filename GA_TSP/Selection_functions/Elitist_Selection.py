@@ -4,17 +4,14 @@ def nuclear_aristocracy(Population, roads, aging=False):
     child_genes = nuclear_family(Population, roads)
     output = list()
     if aging:
-        for i in range(0, len(Population.genes)):
-            output[i] = Population.genes[i][1]
-            output[i*2] = child_genes.genes[i][1]
-
+        for i in range(0, len(Population.genes)//2):
+            output.append(Population.genes[i])
+            output.append(child_genes.genes[i])
     else:
-        output.append([child_genes.genes[i] for i in range(0, len(child_genes.genes))])
-        output.append([Population.genes[i] for i in range(0, len(Population.genes))])
-    output = output[0]
-    for i in output:
-        print(i[0])
-    print('----------------------------------------------------------------------------')
+        for i in range(0,len(child_genes.genes)):
+            output.append(child_genes.genes[i])
+            output.append(Population.genes[i])
     output = sorted(output, key=lambda x: x[0])
-    Population.genes = [output[i] for i in range(0, len(Population.genes))]
+    for i in range(0,len(Population.genes)):
+        Population.genes[i] = output[i]
     return Population

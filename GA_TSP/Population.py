@@ -9,6 +9,8 @@ class Population:
     roads = None
 
     def __init__(self, gene_number, city_number, child=False):
+        if gene_number % 2 != 0:
+            gene_number += 1
         if not child:
             cities_model = [i for i in range(2, city_number+1)]
             blank_genes = [[0]*2 for i in range(0, gene_number)]

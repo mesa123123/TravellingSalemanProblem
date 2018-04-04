@@ -20,8 +20,8 @@ def nuclear_family(Parent_Pop, roads):
     child_generation = Population(Parent_Pop.gene_number, Parent_Pop.city_number)
     for i in range(0, len(Parent_Pop.genes), 2):
         children = partially_mapped_crossover(Parent_Pop.genes[i][1], Parent_Pop.genes[i+1][1])
-        child_generation.genes.append([0, tuple(children[0])])
-        child_generation.genes.append([0, tuple(children[1])])
+        child_generation.genes[i] = ([0, tuple(children[0])])
+        child_generation.genes[i+1] = ([0, tuple(children[1])])
     return score_pop(child_generation, roads)
 
 
