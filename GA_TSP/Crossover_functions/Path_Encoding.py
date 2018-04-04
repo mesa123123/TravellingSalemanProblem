@@ -11,46 +11,35 @@ def partially_mapped_crossover(p1, p2, only_child=False):
     c1 = [cut_genome[0][i] for i in range(0, len(cut_genome[0]))]
     c2 = [cut_genome[1][i] for i in range(0, len(cut_genome[1]))]
     # switch the genes outside the cuts for C1 so there are no repeated genes
-    rearrange = True
-    i = first_cut
-    j = 0
-    while rearrange:
-        if c1[i] == c1[j]:
-            c1[j] = c2[i]
-            i = first_cut
-            j = 0
-        else:
-            j += 1
-        if j == first_cut:
-            j = second_cut
-        if j == len(p1):
-            i += 1
-            j = 0
-        if i == second_cut:
-            rearrange = False
-    # iron out kinks in C2 so there are no repeated genes
-    rearrange = True
-    i = first_cut
-    j = 0
-    while rearrange:
-        if c2[i] == c2[j]:
-            c2[j] = c1[i]
-            i = first_cut
-            j = 0
-        else:
-            j += 1
-        if j == first_cut:
-            j = second_cut
-        if j == len(p1):
-            i += 1
-            j = 0
-        if i == second_cut:
-            rearrange = False
+    c1 = cryspr_map(c1, p1, first_cut, second_cut)
+    c2 = cryspr_map(c2, p2, first_cut, second_cut)
     # If we want the parents to create one or two child genomes
     if only_child:
-        return [0, c1]
+        return c1
     else:
-        return [[0, c1], [0, c2]]
+        return [c1, c2]
+
+
+def cryspr_map(c, p, first_cut, second_cut):
+    rearrange = True
+    i = first_cut
+    j = 0
+    while rearrange:
+        if c[i] == c[j]:
+            c[j] = p[i]
+            i = first_cut
+            j = 0
+        else:
+            j += 1
+        if j == first_cut:
+            j = second_cut
+        if j == len(c):
+            i += 1
+            j = 0
+        if i == second_cut:
+            rearrange = False
+    return c
+
 
 
 def order_crossover():
@@ -84,9 +73,9 @@ def random_cut(p1, p2, first_cut, second_cut):
 # p2 = [2,4,5,8,7,6,9,1,3]
 #
 # children = partially_mapped_crossover(p1, p2, False)
-# print(children[0][1])
-# print(children[1][1])
-# children[0][1].sort()
-# children[1][1].sort()
-# print(children[0][1])
-# print(children[1][1])
+# print(children[0])
+# print(children[1])
+# children[0].sort()
+# children[1].sort()
+# print(children[0])
+# print(children[1])

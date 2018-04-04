@@ -8,16 +8,16 @@ def queen_bee(Population, roads):
         score_pop(Population, roads)
     queen_bee = Population.genes[0][1]
     for i in range(1, len(Population.genes)):
-        Population[i] = [0, partially_mapped_crossover(queen_bee, Population.genes[i][1], True)]
+        Population.genes[i] = [0, tuple(partially_mapped_crossover(queen_bee, Population.genes[i][1], True))]
 
 # takes the parents of the previous generation and simply breeds two children in their place
-def elite_nuclear_family(Population, roads):
+def nuclear_family(Population, roads):
     if not Population.scored:
         score_pop(Population, roads)
     for i in range(0, len(Population.genes), 2):
-        children = partially_mapped_crossover(Population[i][1], Population[i+1][1])
-        Population[i] = [0, children[0]]
-        Population[i+1] = [0, children[1]]
+        children = partially_mapped_crossover(Population.genes[i][1], Population.genes[i+1][1])
+        Population.genes[i] = [0, tuple(children[0])]
+        Population.genes[i+1] = [0, tuple(children[1])]
 
 
 def probabilistic_selection(Population, roads):
