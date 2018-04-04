@@ -41,7 +41,6 @@ def cryspr_map(c, p, first_cut, second_cut):
     return c
 
 
-
 def order_crossover():
     pass
 

@@ -7,3 +7,4 @@ def score_pop(Population, roads):
     Population.genes = sorted(Population.genes, key=lambda x: x[0])
     if not Population.scored:
         Population.scored = True
+    return Population
