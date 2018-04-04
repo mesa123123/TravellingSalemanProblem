@@ -1,4 +1,5 @@
 from Tools.Distance_check import distance_check
+from GA_TSP.Population import Population
 
 def score_pop(Population, roads):
     for gene in Population.genes:
@@ -6,3 +7,14 @@ def score_pop(Population, roads):
     Population.genes = sorted(Population.genes, key=lambda x: x[0])
     if not Population.scored:
         Population.scored = True
+
+
+Person = Population(8, 10)
+cities = ProblemMatrix(10, 5)
+cities.make_matrix()
+score_pop(Person, cities.city_matrix)
+print(Person.genes)
+print('---------------------------------------------------------------------------')
+queen_bee(Person, cities.city_matrix)
+print(Person.genes)
+
