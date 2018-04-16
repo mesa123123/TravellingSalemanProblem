@@ -3,9 +3,10 @@ from random import randint
 
 def gene_crossover(p1, p2, only_child=False, first=0, second=0, style="partially_mapped"):
     # determines where the cuts in the genomes will be
+    # first cut has to be more than 0, and second cut has to be less than length-1
     if first == 0 and second == 0:
         first_cut = randint(1, len(p1)//2 - 1)
-        second_cut = randint(len(p1)//2, len(p1))
+        second_cut = randint(len(p1)//2, len(p1)-1)
     else:
         first_cut = first
         second_cut = second

@@ -37,7 +37,7 @@ def rank(population, roads, first, second, style):
 
 
 #Takes the parents of the previous generation, shuffles them and simply breeds two children in their place
-def random(Parent_Pop, roads, first=0, second=0, style="partially_mapped"):
+def random(Parent_Pop, roads, first, second, style="partially_mapped"):
     if not Parent_Pop.scored:
         score_pop(Parent_Pop, roads)
     rnd.shuffle(Parent_Pop.genes)
