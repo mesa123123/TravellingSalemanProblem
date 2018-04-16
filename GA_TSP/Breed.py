@@ -7,13 +7,31 @@ import random
 def rank_selection(population, roads, first, second, style):
     if not population.scored:
         score_pop(population, roads)
-    child_generation = list()
+    ranked_generation = list()
+    child_generation = Population(population.gene_number, population.city_number)
+    p1 = list()
+    p2 = list()
     prize_money = len(population.genes)
     for i in range(0, len(population.genes)):
-        child_generation.append([prize_money, population.genes[i][0], population.genes[i][1]])
+        ranked_generation.append([prize_money, population.genes[i][0], population.genes[i][1]])
         prize_money += len(population.genes) - (i+1)
     for j in range(0, len(population.genes)):
-
+        parent_choice_1 = random.randint(len(population.genes), prize_money)
+        parent_choice_2 = random.randint(len(population.genes), prize_money)
+        for k in range(0,len(ranked_generation)):
+            if parent_choice_1 >= ranked_generation[k][0]:
+                p1 = ranked_generation[k-1][2]
+            if parent_choice_2 >= ranked_generation[k][0]:
+                p2 = ranked_generation[k-1][2]
+                if p1 == p2:
+                    if len(ranked_generation[k-2]) > 0:
+                        p2 = ranked_generation[k-2][2]
+                    else:
+                        p2 = ranked_generation[k][2]
+        if(len(p1) == 0):
+            print(parent_choice_1)
+        child_generation.genes[j] = [0, tuple(gene_crossover(p1, p2, only_child=True, first=first, second=second, style=style))]
+    return score_pop(child_generation, roads)
 
 
 # this allows the best algorithm to share its traits with the rest of the population, and allows the best of the
@@ -54,5 +72,4 @@ def __random_breed(Parent_Pop, roads, first=0, second=0, style="partially_mapped
         children = gene_crossover(Parent_Pop.genes[i][1], Parent_Pop.genes[i+1][1], first=first, second=second, style=style)
         child_generation.genes[i] = ([0, tuple(children[0])])
         child_generation.genes[i+1] = ([0, tuple(children[1])])
-
     return score_pop(child_generation, roads)
