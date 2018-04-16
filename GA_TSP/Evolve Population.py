@@ -1,5 +1,5 @@
 from Tools import Problem_Matrix
-from GA_TSP.Breed import *
+from GA_TSP.Selection import selection
 from GA_TSP.Score_Pop import score_pop
 from GA_TSP.Population import Population
 from Tools.See_Salesman import plot_travels
@@ -23,7 +23,7 @@ score_pop(Person, roads)
 optimal_route = list()
 optimal_route.append(Person.genes[0][0])
 for i in range(0, generation):
-    Person = rank_selection(Person, roads, first=first_cut, second=second_cut, style=style)
+    Person = selection(Person, roads, first=first_cut, second=second_cut, style=style, parent="rank", selection="elitism")
     optimal_route.append(Person.genes[0][0])
 journey = list()
 journey.append([optimal_route, 'Genetic Algorithm'])
