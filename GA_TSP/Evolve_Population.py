@@ -2,8 +2,7 @@ from GA_TSP.Score_Pop import score_pop
 from GA_TSP.Population import Population
 from GA_TSP.Selection import selection
 
-def create_result(city_number, paver, pop_size, crossover, parent, select):
-    generation = city_number*20
+def create_result(city_number, paver, pop_size, generation, crossover, parent, select):
     # if the cuts are set to 0 is means that there will be random cuts made for each crossover
     first_cut = 0 # city_number//4
     second_cut = 0 # (city_number*3)//4
