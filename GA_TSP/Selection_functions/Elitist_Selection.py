@@ -1,7 +1,9 @@
-from GA_TSP.Selection_functions.Next_Generation import *
+from GA_TSP.Selection_functions.Breed import *
 
-def nuclear_aristocracy(Population, roads, aging=False):
-    child_genes = nuclear_family(Population, roads)
+
+#Takes the best half of the parents and the kids and selects them for the next generation
+def nuclear_aristocracy(Population, roads, aging=False, first=0, second=0):
+    child_genes = nuclear_family(Population, roads, first=first, second=second)
     output = list()
     if aging:
         for i in range(0, len(Population.genes)//2):
@@ -15,3 +17,7 @@ def nuclear_aristocracy(Population, roads, aging=False):
     for i in range(0,len(Population.genes)):
         Population.genes[i] = output[i]
     return Population
+
+
+def rank_selection(Population, roads, aging=False, first=0, second=0):
+    pass

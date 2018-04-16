@@ -12,19 +12,20 @@ def queen_bee(Population, roads):
     for i in range(1, len(Population.genes)):
         Population.genes[i] = [0, tuple(partially_mapped_crossover(queen_bee, Population.genes[i][1], True))]
 
-# takes the parents of the previous generation and simply breeds two children in their place
-def nuclear_family(Parent_Pop, roads):
+#Takes the parents of the previous generation and simply breeds two children in their place
+def nuclear_family(Parent_Pop, roads, first=0, second=0):
     if not Parent_Pop.scored:
         score_pop(Parent_Pop, roads)
     random.shuffle(Parent_Pop.genes)
     child_generation = Population(Parent_Pop.gene_number, Parent_Pop.city_number)
     for i in range(0, len(Parent_Pop.genes), 2):
-        children = partially_mapped_crossover(Parent_Pop.genes[i][1], Parent_Pop.genes[i+1][1])
+        children = partially_mapped_crossover(Parent_Pop.genes[i][1], Parent_Pop.genes[i+1][1], first=first, second=second)
         child_generation.genes[i] = ([0, tuple(children[0])])
         child_generation.genes[i+1] = ([0, tuple(children[1])])
+
     return score_pop(child_generation, roads)
 
 
-def probabilistic_selection(Population, roads):
+def rank_selection(Population, roads):
     pass
 

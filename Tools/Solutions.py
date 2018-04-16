@@ -32,18 +32,18 @@ paver.make_matrix()
 roads = paver.city_matrix
 
 # set up the routes, I've got many of them just in case you'd like to radomize the start points
-# hill_route = Route(cities, same_start, paver)
-# steep_route = Route(cities, same_start, paver)
+hill_route = Route(cities, same_start, paver)
+steep_route = Route(cities, same_start, paver)
 # repeated_hill_route = Route(cities, same_start, paver)
 # repeated_steep_route = Route(cities, same_start, paver)
 annealing_route = Route(cities, same_start, paver)
 
 # Implemennts the Algorithms and Plots them on a graph
 journeys = list()
-# journeys.append([hill_climb(optimization_goal , hill_route.route, roads), 'hill_climb'])
-# journeys.append([steep_climb(optimization_goal, steep_route.route, roads), 'steep_climb'])
+journeys.append([hill_climb(optimization_goal , hill_route.route, roads), 'hill_climb'])
+journeys.append([steep_climb(optimization_goal, steep_route.route, roads), 'steep_climb'])
 journeys.append([simulated_annealing(annealing_route.route, roads, init_temp), 'simulated_annealing'])
-# journeys.append([steep_simulated_annealing(annealing_route.route,roads,init_temp),"steep_annealing"])
+journeys.append([steep_simulated_annealing(annealing_route.route,roads,init_temp),"steep_annealing"])
 # journeys.append([repeated_climb(optimization_goal, repeated_hill_route.route, roads, repeats), 'repeat_hill'])
 # journeys.append([repeated_climb(optimization_goal, repeated_steep_route.route, roads, repeats, True), 'steep_repeat'])
 # journeys.append([repeated_anneal(annealing_route.route, roads, init_temp, repeats, False), 'repeated_simulated_annealing'])
