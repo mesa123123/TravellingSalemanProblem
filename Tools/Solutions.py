@@ -37,15 +37,15 @@ roads = paver.city_matrix
 # set up the routes, I've got many of them just in case you'd like to radomize the start points
 hill_route = Route(cities, same_start, paver)
 steep_route = Route(cities, same_start, paver)
-# repeated_hill_route = Route(cities, same_start, paver)
-# repeated_steep_route = Route(cities, same_start, paver)
+repeated_hill_route = Route(cities, same_start, paver)
+repeated_steep_route = Route(cities, same_start, paver)
 annealing_route = Route(cities, same_start, paver)
 
 # Implemennts the Algorithms and Plots them on a graph
 journeys = list()
 # journeys.append([hill_climb(optimization_goal , hill_route.route, roads), 'hill_climb'])
 # journeys.append([steep_climb(optimization_goal, steep_route.route, roads), 'steep_climb'])
-# journeys.append([simulated_annealing(annealing_route.route, roads, init_temp), 'simulated_annealing'])
+journeys.append([simulated_annealing(annealing_route.route, roads, init_temp), 'simulated_annealing'])
 journeys.append([steep_simulated_annealing(annealing_route.route,roads,init_temp, generation),"steep_annealing"])
 journeys.append([create_result(number_of_cities, paver, pop_size, generation, "order", "rank", "elitism", mutation,
                                mutation_chance), "Mutation"])
