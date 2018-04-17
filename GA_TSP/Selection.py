@@ -19,8 +19,7 @@ def selection(population, roads, style="partially mapped", parent="random", sele
     # sort it and return it
     output = sorted(output, key=lambda x: x[0])
     if mutation != None:
-        for gene in output:
-            gene[1] = insertion_mutation(list(gene[1]), mutation_chance)
+            output = mutate(output, mutation, mutation_chance)
     for i in range(0,len(population.genes)):
         population.genes[i] = output[i]
     return population
@@ -46,4 +45,22 @@ def on_fitness(parent_pop, child_pop, aging=False):
         for i in range(0,len(child_pop.genes)):
             output.append(child_pop.genes[i])
             output.append(parent_pop.genes[i])
+    return output
+
+
+def mutate(output, mutation, mutation_chance):
+    for gene in output:
+        if mutation == "insert":
+            gene[1] = insertion_mutation(list(gene[1]), mutation_chance)
+        elif mutation == "swap":
+            gene[1] = swap_mutation(list(gene[1]), mutation_chance)
+        elif mutation == "scramble":
+            gene[1] = scramble_mutation(list(gene[1]), mutation_chance)
+        elif mutation == "invert":
+            gene[1] = inversion_mutation(list(gene[1]), mutation_chance)
+        elif mutation == "displace":
+            gene[1] = displacement_mutation(list(gene[1]), mutation_chance)
+        else:
+            gene[1] = gene[1]
+            print("Error: mutation did nothing")
     return output

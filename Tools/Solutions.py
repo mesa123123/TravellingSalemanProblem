@@ -24,9 +24,9 @@ cities = [x for x in range(2, number_of_cities+1)]
 repeats = number_of_cities//5
 init_temp = number_of_cities*repeats
 pop_size = 16
-generation = 500
-mutation = "insert"
-mutation_chance = 0.1
+generation = number_of_cities*10
+mutation = "swap"
+mutation_chance = number_of_cities/(number_of_cities*40)
 
 # set up the roads between the cities
 paver = Problem_Matrix.ProblemMatrix(number_of_cities, longest_distance)
@@ -46,7 +46,7 @@ journeys = list()
 # journeys.append([hill_climb(optimization_goal , hill_route.route, roads), 'hill_climb'])
 # journeys.append([steep_climb(optimization_goal, steep_route.route, roads), 'steep_climb'])
 # journeys.append([simulated_annealing(annealing_route.route, roads, init_temp), 'simulated_annealing'])
-# journeys.append([steep_simulated_annealing(annealing_route.route,roads,init_temp, generation),"steep_annealing"])
+journeys.append([steep_simulated_annealing(annealing_route.route,roads,init_temp, generation),"steep_annealing"])
 journeys.append([create_result(number_of_cities, paver, pop_size, generation, "order", "rank", "elitism", mutation,
                                mutation_chance), "Mutation"])
 journeys.append([create_result(number_of_cities, paver, pop_size, generation, "order", "rank", "elitism"),
