@@ -8,7 +8,7 @@ from math import exp
 def simulated_annealing(route, roads, init_temp):
     current_best_distance = distance_check(route, roads)
     temp = init_temp
-    final_temp = init_temp/30
+    final_temp = init_temp/100
     story = []
     story.append(current_best_distance)
     #if the current best distance is already optimal the loop will be skipped entirely
@@ -38,10 +38,10 @@ def simulated_annealing(route, roads, init_temp):
     return story
 
 
-def steep_simulated_annealing(route, roads, init_temp):
+def steep_simulated_annealing(route, roads, init_temp, temp_reduction):
     current_best_distance = distance_check(route, roads)
     temp = init_temp
-    final_temp = init_temp/30
+    final_temp = init_temp/temp_reduction
     story = []
     story.append(current_best_distance)
     #if the current best distance is already optimal the loop will be skipped entirely
@@ -53,9 +53,11 @@ def steep_simulated_annealing(route, roads, init_temp):
             current_best_distance = alt_route[1]
             route = alt_route[0]
         elif rnd.uniform(0,1) < acceptance_probability(cost, temp):
-            story.append(alt_route[1])
-            current_best_distance = alt_route[1]
-            route = alt_route[0]
+            rnd.shuffle(alt_route[0])
+            explored = alt_route[0]
+            story.append(distance_check(explored, roads))
+            current_best_distance = distance_check(explored, roads)
+            route = explored
         temp = cool(temp, final_temp)
     return story
 

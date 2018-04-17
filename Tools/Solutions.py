@@ -13,7 +13,7 @@ def optimizer(optimize_goal, city_number, long_roads):
         return 0
 
 # The variables that control the outputs
-same_start = True
+same_start = False
 optimization_show = False
 number_of_cities = 50
 longest_distance = 4
@@ -24,7 +24,7 @@ cities = [x for x in range(2, number_of_cities+1)]
 repeats = number_of_cities//5
 init_temp = number_of_cities*repeats
 pop_size = 16
-generation = 150
+generation = 500
 
 # set up the roads between the cities
 paver = Problem_Matrix.ProblemMatrix(number_of_cities, longest_distance)
@@ -44,7 +44,7 @@ journeys = list()
 # journeys.append([hill_climb(optimization_goal , hill_route.route, roads), 'hill_climb'])
 journeys.append([steep_climb(optimization_goal, steep_route.route, roads), 'steep_climb'])
 # journeys.append([simulated_annealing(annealing_route.route, roads, init_temp), 'simulated_annealing'])
-journeys.append([steep_simulated_annealing(annealing_route.route,roads,init_temp),"steep_annealing"])
+journeys.append([steep_simulated_annealing(annealing_route.route,roads,init_temp, generation),"steep_annealing"])
 journeys.append([create_result(number_of_cities, paver, pop_size, generation, "order", "rank", "elitism"), "Genetic Algorithm"])
 # journeys.append([repeated_climb(optimization_goal, repeated_hill_route.route, roads, repeats), 'repeat_hill'])
 # journeys.append([repeated_climb(optimization_goal, repeated_steep_route.route, roads, repeats, True), 'steep_repeat'])

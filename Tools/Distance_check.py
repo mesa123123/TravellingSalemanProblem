@@ -17,4 +17,5 @@ def distance_check(route,roads):
             distance.append(roads[a][b])
         except IndexError:
             print("Error: ", route[0])
+            print(i)
     return sum(distance)

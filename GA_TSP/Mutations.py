@@ -1,6 +1,8 @@
+import random as rnd
 
-def swap_mutation:
-    pass
+def swap_mutation(gene, mutation_chance):
+     mutate = rnd.random()
+     if mutate < mutation_chance:
 
 
 def insertion_mutation:
