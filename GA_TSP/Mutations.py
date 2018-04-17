@@ -1,5 +1,6 @@
 import random as rnd
 
+
 def swap_mutation(gene, mutation_chance):
     mutate = rnd.random()
     if mutate < mutation_chance:
@@ -18,9 +19,10 @@ def insertion_mutation(gene, mutation_chance):
         cut2 = rnd.randint(cut1 + 1, len(gene)-1)
         temp = gene[cut2]
         for i in range(cut2, cut1+1, -1):
-            gene[i+1] = gene[i]
+            gene[i] = gene[i-1]
         gene[cut1+1] = temp
     return gene
+
 
 def displacement_mutation():
     pass

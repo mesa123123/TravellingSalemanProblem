@@ -4,7 +4,7 @@ from GA_TSP.Path_Crossover import gene_crossover
 import random as rnd
 
 
-def rank(population, roads, first, second, style):
+def rank(population, roads, style):
     if not population.scored:
         score_pop(population, roads)
     ranked_generation = list()
@@ -32,18 +32,18 @@ def rank(population, roads, first, second, style):
                     else:
                         p2 = ranked_generation[k][2]
         # adds it to the child generation
-        child_generation.genes[j] = [0, tuple(gene_crossover(p1, p2, only_child=True, first=first, second=second, style=style))]
+        child_generation.genes[j] = [0, tuple(gene_crossover(p1, p2, only_child=True, style=style))]
     return score_pop(child_generation, roads)
 
 
 #Takes the parents of the previous generation, shuffles them and simply breeds two children in their place
-def random(Parent_Pop, roads, first, second, style="partially_mapped"):
+def random(Parent_Pop, roads, style):
     if not Parent_Pop.scored:
         score_pop(Parent_Pop, roads)
     rnd.shuffle(Parent_Pop.genes)
     child_generation = Population(Parent_Pop.gene_number, Parent_Pop.city_number)
     for i in range(0, len(Parent_Pop.genes), 2):
-        children = gene_crossover(Parent_Pop.genes[i][1], Parent_Pop.genes[i+1][1], first=first, second=second, style=style)
+        children = gene_crossover(Parent_Pop.genes[i][1], Parent_Pop.genes[i+1][1], style=style)
         child_generation.genes[i] = ([0, tuple(children[0])])
         child_generation.genes[i+1] = ([0, tuple(children[1])])
     return score_pop(child_generation, roads)
