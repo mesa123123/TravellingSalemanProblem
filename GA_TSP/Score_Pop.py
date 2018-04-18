@@ -1,5 +1,5 @@
-from Tools.Distance_check import distance_check
-from GA_TSP.Population import Population
+from Supporting_Tools.Distance_check import distance_check
+from Genetic_Algorithm_Files.Population import Population
 
 def score_pop(Population, roads):
     for gene in Population.genes:

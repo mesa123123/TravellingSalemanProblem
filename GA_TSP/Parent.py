@@ -1,6 +1,6 @@
-from GA_TSP.Score_Pop import score_pop
-from GA_TSP.Population import Population
-from GA_TSP.Path_Crossover import gene_crossover
+from Genetic_Algorithm_Files.Score_Pop import score_pop
+from Genetic_Algorithm_Files.Population import Population
+from Genetic_Algorithm_Files.Path_Crossover import gene_crossover
 import random as rnd
 
 

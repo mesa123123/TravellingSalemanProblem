@@ -1,57 +1,69 @@
-from Tools import Problem_Matrix
-from Tools.Route import Route
-from TSP.Climbs import *
-from Tools.See_Salesman import plot_travels
-from TSP.Simulated_Annealing import *
-from GA_TSP.Evolve_Population import *
+from Supporting_Tools import Problem_Matrix
+from Supporting_Tools.See_Salesman import plot_travels
+from Genetic_Algorithm_Files.Evolve_Population import *
+from Genetic_Algorithm_Files.Population import Population
+from Supporting_Tools.Random_Permutation import random_permutation
 
 
-def optimizer(optimize_goal, city_number, long_roads):
-    if optimize_goal:
-        return city_number*(long_roads//2)
-    else:
-        return 0
-
-# The variables that control the outputs
-same_start = False
-optimization_show = False
+# The variables that control the outputs #
+run_total = 10
+# Sets up a list of the number of the cities
 number_of_cities = 50
-longest_distance = 4
-optimization_goal = number_of_cities*(longest_distance/2)
-optimization_show = optimizer(optimization_show, number_of_cities, longest_distance)    # Shows whether or not we want
-# the optimization goal to show up on the graph
 cities = [x for x in range(2, number_of_cities+1)]
-repeats = number_of_cities//5
-init_temp = number_of_cities*repeats
+# Variables that control the population
 pop_size = 16
-generation = number_of_cities*10
-mutation = "swap"
-mutation_chance = number_of_cities/(number_of_cities*40)
-
+generation = number_of_cities*20
+# Mutation Constant, the bigger this is the less likely mutation is to occur
+mutation_constant = 800
+# Creates initial Population
+Current_Generation = Population(pop_size, number_of_cities)
+# Saves the original values of the genes in order to reset them every-time
+First_Genes = [i for i in Current_Generation.genes]
+# ------------------------------------------- #
+# Decides which genetic controls will be used #
+# ------------------------------------------- #
+# Valid mutations are {swap, invert, displace, scramble, insert, None}
+mutation = "scramble"
+# Valid Parent Algorithms are {rank, random}
+parent_selection = "rank"
+# Valid Crossover Algorithms are {partially mapped, order, cycle}
+crossover = "order"
+# Valid Selection Algorithms are {elitism, on_fitness}
+selection = "elitism"
 # set up the roads between the cities
+longest_distance = 4
 paver = Problem_Matrix.ProblemMatrix(number_of_cities, longest_distance)
 paver.road_rule = list(random_permutation(cities))
 paver.make_matrix()
 roads = paver.city_matrix
-
-# set up the routes, I've got many of them just in case you'd like to radomize the start points
-hill_route = Route(cities, same_start, paver)
-steep_route = Route(cities, same_start, paver)
-repeated_hill_route = Route(cities, same_start, paver)
-repeated_steep_route = Route(cities, same_start, paver)
-annealing_route = Route(cities, same_start, paver)
-
-# Implemennts the Algorithms and Plots them on a graph
-journeys = list()
-# journeys.append([hill_climb(optimization_goal , hill_route.route, roads), 'hill_climb'])
-# journeys.append([steep_climb(optimization_goal, steep_route.route, roads), 'steep_climb'])
-journeys.append([simulated_annealing(annealing_route.route, roads, init_temp), 'simulated_annealing'])
-journeys.append([steep_simulated_annealing(annealing_route.route,roads,init_temp, generation),"steep_annealing"])
-journeys.append([create_result(number_of_cities, paver, pop_size, generation, "order", "rank", "elitism", mutation,
-                               mutation_chance), "Mutation"])
-journeys.append([create_result(number_of_cities, paver, pop_size, generation, "order", "rank", "elitism"),
-                 "No Mutation"])
-# journeys.append([repeated_climb(optimization_goal, repeated_hill_route.route, roads, repeats), 'repeat_hill'])
-# journeys.append([repeated_climb(optimization_goal, repeated_steep_route.route, roads, repeats, True), 'steep_repeat'])
-# journeys.append([repeated_anneal(annealing_route.route, roads, init_temp, repeats, False), 'repeated_simulated_annealing'])
-plot_travels(journeys, optimization_goal, optimization_show)
+mutation_chance = number_of_cities/(number_of_cities*mutation_constant)
+# Implements the Algorithm a certain number of times and Plots them on a graph
+# Creates titles, based on genetic control variables
+best_journeys = list()
+best_graph_title = "Best of: " + crossover + " crossover function with " + mutation + " mutation function"
+average_journeys = list()
+average_graph_title = "Average of: " + crossover + " crossover function with " + mutation + " mutation function"
+worst_journeys = list()
+worst_graph_title = "Worst of: " + crossover + " crossover function with " + mutation + " mutation function"
+for i in range(1, run_total + 1):
+    title = "Run: " + str(i)
+    # -------------------------------------------- #
+    #          Sets up the Output File             #
+    # -------------------------------------------- #
+    output_title = "../Full Scores Of Population/Population Scores.Run " \
+                   + str(i) + ".txt"
+    output_file = open(output_title, 'w')
+    results = create_result(Current_Generation, paver, generation, crossover, parent_selection,
+                                   selection, mutation, mutation_chance, output_file)
+    best_journeys.append([results[0], title])
+    worst_journeys.append([results[1], title])
+    average_journeys.append([results[2], title])
+    output_file.close()
+    # Reset the genes back to their original set
+    Current_Generation.genes = [i for i in First_Genes]
+# Plots Results of the Run Algorithm to a graph #
+plot_travels(best_journeys, best_graph_title)
+# plot_travels(worst_journeys, worst_graph_title)
+# plot_travels(average_journeys, average_graph_title)
+for i in range(0, run_total):
+    plot_travels([best_journeys[i], worst_journeys[i], average_journeys[i]], "Run " + str(i + 1) + ", all stats")

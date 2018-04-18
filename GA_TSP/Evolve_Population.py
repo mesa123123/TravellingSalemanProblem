@@ -1,21 +1,46 @@
 from GA_TSP.Score_Pop import score_pop
-from GA_TSP.Population import Population
 from GA_TSP.Selection import selection
 
 
-def create_result(city_number, paver, pop_size, generation, crossover, parent, select,
-                  mutation=None, mutation_chance=0.1):
-    # if the cuts are set to 0 is means that there will be random cuts made for each crossover
-    first_cut = 0 # city_number//4
-    second_cut = 0 # (city_number*3)//4
-    if pop_size%2 != 0:
-        pop_size += 1
-    Person = Population(pop_size, city_number)
+def create_result(population, paver, generation, crossover, parent, select,
+                  mutation=None, mutation_chance=0.1, output_file=None):
     roads = paver.city_matrix
-    score_pop(Person, roads)
+    score_pop(population, roads)
     optimal_route = list()
-    optimal_route.append(Person.genes[0][0])
+    worst_route = list()
+    average_of_population = list()
+    optimal_route.append(population.genes[0][0])
+    worst_route.append(population.genes[len(population.genes)-1][0])
+    average_of_population.append(average_scores(population.genes))
     for i in range(0, generation):
-        Person = selection(Person, roads, crossover, parent, select, mutation, mutation_chance)
+        Person = selection(population, roads, crossover, parent, select, mutation, mutation_chance)
+        # Attach the best, worst and population average their corresponding list
         optimal_route.append(Person.genes[0][0])
-    return optimal_route
+        worst_route.append(Person.genes[len(Person.genes)-1][0])
+        average_of_population.append(average_scores(Person.genes))
+    # if we want to output the results to a file
+    if output_file != None:
+        print_to_file(output_file, optimal_route, worst_route, average_of_population, generation)
+    return [optimal_route, worst_route, average_of_population]
+
+
+def print_to_file(output_file, optimal_route, worst_route, average_of_population, generation):
+    output_file.write("Best: ")
+    for i in range(0, generation):
+        output_file.write('{}, '.format(optimal_route[i]))
+    output_file.write('\n-----------------------------------------------------------------------------------\n')
+    output_file.write("Worst: ")
+    for i in range(0, generation):
+        output_file.write('{}, '.format(worst_route[i]))
+    output_file.write('\n-----------------------------------------------------------------------------------\n')
+    output_file.write("Average: ")
+    for i in range(0, generation):
+        output_file.write('{}, '.format(average_of_population[i]))
+    output_file.write('\n-----------------------------------------------------------------------------------\n')
+
+
+def average_scores(genes):
+    gene_total = 0
+    for i in range(0,len(genes)):
+        gene_total += genes[i][0]
+    return gene_total/len(genes)

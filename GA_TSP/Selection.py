@@ -1,5 +1,5 @@
-from GA_TSP.Parent import *
-from GA_TSP.Mutations import *
+from Genetic_Algorithm_Files.Parent import *
+from Genetic_Algorithm_Files.Mutations import *
 
 
 # Takes the top 10 from both generations and creates a new generation from the both; if aging is on it takes the
@@ -20,6 +20,7 @@ def selection(population, roads, style="partially mapped", parent="random", sele
     output = sorted(output, key=lambda x: x[0])
     if mutation != None:
             output = mutate(output, mutation, mutation_chance)
+    # Update the populations genes with the new generation
     for i in range(0,len(population.genes)):
         population.genes[i] = output[i]
     return population

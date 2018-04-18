@@ -1,4 +1,4 @@
-from Tools.Random_Permutation import random_permutation
+from Supporting_Tools.Random_Permutation import random_permutation
 
 
 class Population:
