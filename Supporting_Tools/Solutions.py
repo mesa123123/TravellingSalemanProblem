@@ -3,6 +3,7 @@ from Supporting_Tools.See_Salesman import plot_travels
 from Genetic_Algorithm_Files.Evolve_Population import *
 from Genetic_Algorithm_Files.Population import Population
 from Supporting_Tools.Random_Permutation import random_permutation
+import os
 
 
 # The variables that control the outputs #
@@ -40,17 +41,19 @@ mutation_chance = number_of_cities/(number_of_cities*mutation_constant)
 # Implements the Algorithm a certain number of times and Plots them on a graph
 # Creates titles, based on genetic control variables
 best_journeys = list()
-best_graph_title = "Best of: " + crossover + " crossover function with " + mutation + " mutation function"
+best_graph_title = "Best of " + crossover + " crossover function with " + mutation + " mutation function"
 average_journeys = list()
-average_graph_title = "Average of: " + crossover + " crossover function with " + mutation + " mutation function"
+average_graph_title = "Average of " + crossover + " crossover function with " + mutation + " mutation function"
 worst_journeys = list()
-worst_graph_title = "Worst of: " + crossover + " crossover function with " + mutation + " mutation function"
+worst_graph_title = "Worst of " + crossover + " crossover function with " + mutation + " mutation function"
+# Creates a directory for the outputted files
+
 for i in range(1, run_total + 1):
     title = "Run: " + str(i)
     # -------------------------------------------- #
     #          Sets up the Output File             #
     # -------------------------------------------- #
-    output_title = "../Full Scores Of Population/Population Scores.Run " \
+    output_title = "../Results/Full Scores Of Population/Population Scores.Run " \
                    + str(i) + ".txt"
     output_file = open(output_title, 'w')
     results = create_result(Current_Generation, paver, generation, crossover, parent_selection,

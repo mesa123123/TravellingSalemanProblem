@@ -1,6 +1,5 @@
 import pylab as pyl
-from sys import maxsize
-from cycler import cycler
+
 
 def plot_travels(journeys, title):
     longest_journey = 0
@@ -22,4 +21,6 @@ def plot_travels(journeys, title):
     pyl.xlabel('Generation')
     pyl.ylabel('Population Best')
     pyl.title(title)
-    pyl.show()
+    pyl.savefig("../Results/Performance Graphs/Graph " \
+                   + title + ".png", bbox_inches='tight')
+    pyl.gcf().clear()
