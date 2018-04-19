@@ -14,7 +14,7 @@ cities = [x for x in range(2, number_of_cities+1)]
 pop_size = 16
 generation = number_of_cities*20
 # Mutation Constant, the bigger this is the less likely mutation is to occur
-mutation_constant = 800
+mutation_constant = 100
 # Creates initial Population
 Current_Generation = Population(pop_size, number_of_cities)
 # Saves the original values of the genes in order to reset them every-time
@@ -23,7 +23,7 @@ First_Genes = [i for i in Current_Generation.genes]
 # Decides which genetic controls will be used #
 # ------------------------------------------- #
 # Valid mutations are {swap, invert, displace, scramble, insert, None}
-mutation = "scramble"
+mutation = "invert"
 # Valid Parent Algorithms are {rank, random}
 parent_selection = "rank"
 # Valid Crossover Algorithms are {partially mapped, order, cycle}
@@ -63,7 +63,7 @@ for i in range(1, run_total + 1):
     Current_Generation.genes = [i for i in First_Genes]
 # Plots Results of the Run Algorithm to a graph #
 plot_travels(best_journeys, best_graph_title)
-# plot_travels(worst_journeys, worst_graph_title)
-# plot_travels(average_journeys, average_graph_title)
+plot_travels(worst_journeys, worst_graph_title)
+plot_travels(average_journeys, average_graph_title)
 for i in range(0, run_total):
     plot_travels([best_journeys[i], worst_journeys[i], average_journeys[i]], "Run " + str(i + 1) + ", all stats")

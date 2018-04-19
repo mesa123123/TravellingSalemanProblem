@@ -1,6 +1,6 @@
-from Tools.Distance_check import distance_check
-from Tools.Random_Permutation import random_permutation
-from Tools.Swap import *
+from Supporting_Tools.Distance_check import distance_check
+from Supporting_Tools.Random_Permutation import random_permutation
+from Supporting_Tools.Swap import *
 import random as rnd
 from math import exp
 

@@ -1,5 +1,5 @@
-from GA_TSP.Score_Pop import score_pop
-from GA_TSP.Selection import selection
+from Genetic_Algorithm_Files.Score_Pop import score_pop
+from Genetic_Algorithm_Files.Selection import selection
 
 
 def create_result(population, paver, generation, crossover, parent, select,
