@@ -3,7 +3,7 @@ from Supporting_Tools.See_Salesman import plot_travels
 from Genetic_Algorithm_Files.Evolve_Population import *
 from Genetic_Algorithm_Files.Population import Population
 from Supporting_Tools.Random_Permutation import random_permutation
-import os
+from Supporting_Tools import Create_Dirs
 
 
 # The variables that control the outputs #
@@ -47,13 +47,14 @@ average_graph_title = "Average of " + crossover + " crossover function with " + 
 worst_journeys = list()
 worst_graph_title = "Worst of " + crossover + " crossover function with " + mutation + " mutation function"
 # Creates a directory for the outputted files
-
+dir_title = str(selection) + " " +  str(parent_selection) + " " + str(crossover) + " " + str(mutation)
+Create_Dirs.main(dir_title)
 for i in range(1, run_total + 1):
     title = "Run: " + str(i)
     # -------------------------------------------- #
     #          Sets up the Output File             #
     # -------------------------------------------- #
-    output_title = "../Results/Full Scores Of Population/Population Scores.Run " \
+    output_title = "../Results/" + dir_title + "/Full Scores Of Population/Population Scores.Run " \
                    + str(i) + ".txt"
     output_file = open(output_title, 'w')
     results = create_result(Current_Generation, paver, generation, crossover, parent_selection,
@@ -65,8 +66,9 @@ for i in range(1, run_total + 1):
     # Reset the genes back to their original set
     Current_Generation.genes = [i for i in First_Genes]
 # Plots Results of the Run Algorithm to a graph #
-plot_travels(best_journeys, best_graph_title)
-plot_travels(worst_journeys, worst_graph_title)
-plot_travels(average_journeys, average_graph_title)
+plot_travels(best_journeys, best_graph_title, dir_title)
+plot_travels(worst_journeys, worst_graph_title, dir_title)
+plot_travels(average_journeys, average_graph_title, dir_title)
 for i in range(0, run_total):
-    plot_travels([best_journeys[i], worst_journeys[i], average_journeys[i]], "Run " + str(i + 1) + ", all stats")
+    plot_travels([best_journeys[i], worst_journeys[i], average_journeys[i]], "Run " + str(i + 1) + ", all stats",
+                 dir_title)

@@ -1,7 +1,7 @@
 import pylab as pyl
 
 
-def plot_travels(journeys, title):
+def plot_travels(journeys, title, dir_title):
     longest_journey = 0
     shortest_journey = 0
     for journey in journeys:
@@ -21,6 +21,6 @@ def plot_travels(journeys, title):
     pyl.xlabel('Generation')
     pyl.ylabel('Population Best')
     pyl.title(title)
-    pyl.savefig("../Results/Performance Graphs/Graph " \
+    pyl.savefig("../Results/" + dir_title + "/Performance Graphs/Graph " \
                    + title + ".png", bbox_inches='tight')
     pyl.gcf().clear()
