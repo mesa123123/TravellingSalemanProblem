@@ -24,7 +24,7 @@ First_Genes = [i for i in Current_Generation.genes]
 # Decides which genetic controls will be used #
 # ------------------------------------------- #
 # Valid mutations are {swap, invert, displace, scramble, insert, None}
-mutation = "invert"
+mutation = "displace"
 # Valid Parent Algorithms are {rank, random}
 parent_selection = "rank"
 # Valid Crossover Algorithms are {partially mapped, order, cycle}
@@ -69,6 +69,9 @@ for i in range(1, run_total + 1):
 plot_travels(best_journeys, best_graph_title, dir_title)
 plot_travels(worst_journeys, worst_graph_title, dir_title)
 plot_travels(average_journeys, average_graph_title, dir_title)
+# Plots the average, worst and best population scores for each generation on the graph
 for i in range(0, run_total):
     plot_travels([best_journeys[i], worst_journeys[i], average_journeys[i]], "Run " + str(i + 1) + ", all stats",
                  dir_title)
+
+
