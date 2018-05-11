@@ -123,8 +123,8 @@ def gene_switch(p1, p2, first_cut, second_cut):
 
 
 # these were used in testing purposes
-# p1 = [1,3,2,6,4,5,7,9,8]
-# p2 = [2,4,5,8,7,1,3,6,9]
+# p1 = [1,2,3,4,5,6,7,8,9]
+# p2 = [2,4,5,8,7,1,3,9,6]
 #
 # children = gene_crossover(p1, p2, only_child=False, first=0, second=0, style="cycle")
 # print(p1, " p1")

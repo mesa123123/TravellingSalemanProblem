@@ -4,13 +4,18 @@ from Genetic_Algorithm_Files.Mutations import *
 
 # Takes the top 10 from both generations and creates a new generation from the both; if aging is on it takes the
 # top 10 of both
-def selection(population, roads, style="partially mapped", parent="random", selection="on_fitness", mutation=None,
+def selection(population, roads, style="partially mapped", parent=None, selection=None, mutation="No",
               mutation_chance=0.1):
     # create child genes
     if parent == "rank":
         child_genes = rank(population, roads, style=style)
-    else:
+    elif parent == "random":
         child_genes = random(population, roads, style=style)
+    else:
+        child_genes = score_pop(population, roads)
+    # Implement Mutation
+    if mutation != "No":
+            child_genes.genes = mutate(child_genes.genes, mutation, mutation_chance)
     # implement selection algorithm to create new generation
     if selection == "elitism":
         output = elitism(population, child_genes)
@@ -18,8 +23,6 @@ def selection(population, roads, style="partially mapped", parent="random", sele
         output = on_fitness(population, child_genes)
     # sort it and return it
     output = sorted(output, key=lambda x: x[0])
-    if mutation != None:
-            output = mutate(output, mutation, mutation_chance)
     # Update the populations genes with the new generation
     for i in range(0,len(population.genes)):
         population.genes[i] = output[i]
@@ -63,5 +66,4 @@ def mutate(output, mutation, mutation_chance):
             gene[1] = displacement_mutation(list(gene[1]), mutation_chance)
         else:
             gene[1] = gene[1]
-            print("Error: mutation did nothing")
     return output
