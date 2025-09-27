@@ -1,6 +1,6 @@
 from sys import maxsize
 from Supporting_Tools.Random_Permutation import random_permutation
-from Supporting_Tools.Swap import *
+from Supporting_Tools.Swap import 
 from Supporting_Tools.Distance_check import distance_check
 
 def hill_climb(optimization_goal, route, roads):

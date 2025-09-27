@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "travelling_salesman_problem"
+version = "0.2.0"
+description = "This is an old university project I've refactored for a job interview"
+authors = [{ name = "Peter Bowman", email = "bowmanpete123@gmail.com" }]
+license = "MIT"
+requires-python = ">=3.13.0"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[dependency-groups]
+dev = [
+  "ruff",
+  "ty",
+  "debugpy",
+  "pytest",
+  "docformatter",
+  "python-language-server",
+]
+
+
+[tool.docformatter]
+line_length = 120
+pre_summary_newline = true
+post_summary_newline = true
+make_summary_multi_line = false
+force_wrap = false
+use_double_quotes = true
