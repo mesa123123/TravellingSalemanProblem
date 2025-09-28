@@ -24,15 +24,16 @@ dev = ["ruff", "ty", "debugpy", "pytest", "docformatter", "python-lsp-server"]
 # --- PYLSP: LANGUAGE SERVER PATH FIX ---
 [tool.pylsp.settings.python.analysis]
 extraPaths = [
-    ".",
-    "./src",
-    "./genetic_algorithm_files",
-    "./supporting_tools",
+  ".",
+  "./src",
+  "./genetic_algorithm_files",
+  "./supporting_tools",
+  "./src/logistics/",
 ]
 
 # --- RUFF: LINTER SOURCE FIX ---
 [tool.ruff]
-src = ["src", "genetic_algorithm_files", "supporting_tools", "."]
+src = ["src", "genetic_algorithm_files", "supporting_tools", "logistics", "."]
 line-length = 120
 target-version = "py313"
 select = ["E", "F", "W", "I"]
