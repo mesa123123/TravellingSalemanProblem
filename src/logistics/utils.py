@@ -3,13 +3,13 @@ from typing import Optional
 from numpy import ndarray
 from numpy.random import default_rng
 
-from src.logistics.types import Destination, Road, Road_Network, Route
+from src.logistics.types import Destination, Road, RoadNetwork, Route, RoutePopulation
 
 
-def create_road_network(num_cities: int, road_length_limit: float) -> Road_Network:
+def create_road_network(num_cities: int, road_length_limit: float) -> RoadNetwork:
     rnd = default_rng()
     city_weights: ndarray = rnd.uniform(low=1, high=road_length_limit, size=(num_cities, num_cities))
-    route_network: Road_Network = [
+    route_network: RoadNetwork = [
         Road(departure_city=i + 1, arrival_city=j + 1, road_length=round(city_weights[i][j], 3))
         for i in range(num_cities + 1)
         for j in range(i + 1, num_cities + 1)
@@ -17,7 +17,7 @@ def create_road_network(num_cities: int, road_length_limit: float) -> Road_Netwo
     return route_network
 
 
-def plot_route(route: Optional[Route], all_roads: Road_Network) -> Route:
+def plot_route(route: Optional[Route], all_roads: RoadNetwork) -> Route:
     if not route:
         rnd = default_rng()
         rnd_route = rnd.permutation(len(all_roads) + 1)
@@ -38,6 +38,13 @@ def plot_route(route: Optional[Route], all_roads: Road_Network) -> Route:
         destinations[i].arrived_by_road = connecting_road
     total_dist: float = sum([dest.arrived_by_road.road_length for dest in destinations])
     return Route(destinations, total_dist)
+
+
+def score_route_population(population: RoutePopulation, road_network: RoadNetwork) -> RoutePopulation:
+    scored_route_population: RoutePopulation = [plot_route(route, road_network) for route in population.routes]
+
+    scored_route_population.routes = sorted(scored_route_population.routes, key=lambda x: x.route_score)
+    return scored_route_population
 
 
 def get_best_swapped_route(route, roads) -> Route:
