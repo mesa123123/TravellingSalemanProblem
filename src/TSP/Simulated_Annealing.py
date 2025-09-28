@@ -1,9 +1,8 @@
 import random as rnd
 from math import exp
 
-from Supporting_Tools.Distance_check import distance_check
-from Supporting_Tools.Random_Permutation import random_permutation
-from Supporting_Tools.Swap import best_distance, next_distance
+from src.supporting_tools.distance_check import distance_check
+from src.supporting_tools.swap import best_distance, next_distance
 
 
 def cool(temp, final_temp):
@@ -80,7 +79,8 @@ def repeated_anneal(route, roads, init_temp, resets, steep=False):
     for distance in one_hill:
         story.append(distance)
     for i in range(0, resets):
-        route = list(random_permutation(route))
+        copied_route = route.copy()
+        route = rnd.shuffle(copied_route)
         if not steep:
             one_hill = simulated_annealing(route, roads, init_temp)
         else:

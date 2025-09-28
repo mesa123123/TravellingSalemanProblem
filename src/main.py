@@ -2,14 +2,12 @@ from src.genetic_algorithm_files.evolve_population import create_result
 from src.genetic_algorithm_files.population import Population
 from src.supporting_tools.create_dirs import create_dirs
 from src.supporting_tools.problem_matrix import ProblemMatrix
-from src.supporting_tools.random_permutation import random_permutation
 from src.supporting_tools.see_salesman import plot_travels
 
 # The variables that control the outputs #
 RUN_TOTAL: int = 50
 # Sets up a list of the number of the cities
 NUMBER_OF_CITIES: int = 50
-CITIES: list[int] = list(range(2, NUMBER_OF_CITIES + 1))
 # Variables that control the population
 POP_SIZE: int = 16
 GENERATION: int = 1000
@@ -36,7 +34,6 @@ selection: str = "elitism"
 # set up the roads between the cities
 longest_distance: int = 4
 paver: ProblemMatrix = ProblemMatrix(NUMBER_OF_CITIES, longest_distance)
-paver.road_rule: list = list(random_permutation(CITIES))
 paver.make_matrix()
 roads = paver.city_matrix
 mutation_chance: float = NUMBER_OF_CITIES / (NUMBER_OF_CITIES * MUTATION_CONSTANT)

@@ -1,8 +1,8 @@
-from Genetic_Algorithm_Files.Evolve_Population import *
-from Genetic_Algorithm_Files.Population import Population
-from Supporting_Tools import Create_Dirs, Problem_Matrix
-from Supporting_Tools.Random_Permutation import random_permutation
-from Supporting_Tools.See_Salesman import plot_travels
+from src.genetic_algorithm_files.evolve_population import create_result, selection
+from src.genetic_algorithm_files.population import Population
+from src.supporting_tools.create_dirs import create_dirs
+from src.supporting_tools.problem_matrix import ProblemMatrix
+from src.supporting_tools.see_salesman import plot_travels
 
 # The variables that control the outputs #
 run_total = 50
@@ -33,53 +33,28 @@ crossover = "No"
 selection = "elitism"
 # set up the roads between the cities
 longest_distance = 4
-paver = Problem_Matrix.ProblemMatrix(number_of_cities, longest_distance)
-paver.road_rule = list(random_permutation(cities))
+paver: ProblemMatrix = ProblemMatrix(number_of_cities, longest_distance)
 paver.make_matrix()
 roads = paver.city_matrix
 mutation_chance = number_of_cities / (number_of_cities * mutation_constant)
 # Implements the Algorithm a certain number of times and Plots them on a graph
 # Creates titles, based on genetic control variables
 best_journeys = list()
-best_graph_title = (
-    "Best of "
-    + crossover
-    + " crossover function with "
-    + mutation
-    + " mutation function"
-)
+best_graph_title = "Best of " + crossover + " crossover function with " + mutation + " mutation function"
 average_journeys = list()
-average_graph_title = (
-    "Average of "
-    + crossover
-    + " crossover function with "
-    + mutation
-    + " mutation function"
-)
+average_graph_title = "Average of " + crossover + " crossover function with " + mutation + " mutation function"
 worst_journeys = list()
-worst_graph_title = (
-    "Worst of "
-    + crossover
-    + " crossover function with "
-    + mutation
-    + " mutation function"
-)
+worst_graph_title = "Worst of " + crossover + " crossover function with " + mutation + " mutation function"
 # Creates a directory for the outputted files
 # dir_title = str(selection) + " " +  str(parent_selection) + " " + str(crossover) + " " + str(mutation)
 dir_title = "Local Search"
-Create_Dirs.main(dir_title)
+create_dirs(dir_title)
 for i in range(1, run_total + 1):
     title = "Run: " + str(i)
     # -------------------------------------------- #
     #          Sets up the Output File             #
     # -------------------------------------------- #
-    output_title = (
-        "../Results/"
-        + dir_title
-        + "/Full Scores Of Population/Population Scores.Run "
-        + str(i)
-        + ".txt"
-    )
+    output_title = "../Results/" + dir_title + "/Full Scores Of Population/Population Scores.Run " + str(i) + ".txt"
     output_file = open(output_title, "w")
     results = create_result(
         Current_Generation,

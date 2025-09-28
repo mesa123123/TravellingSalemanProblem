@@ -3,8 +3,6 @@ from os.path import exists
 
 import numpy as np
 
-from src.supporting_tools.random_permutation import random_permutation
-
 
 class ProblemMatrix:
     city_matrix = None
@@ -15,8 +13,7 @@ class ProblemMatrix:
     def __init__(self, size: int, longest: int):
         self.size = size + 1
         self.longest = longest
-        cities_model = [x for x in range(2, size)]
-        self.road_rule = random_permutation(cities_model)
+        self.road_rule = rnd.shuffle([x for x in range(2, size)])
 
     def make_matrix(self):
         matrix_file_name = "Roads " + str(self.size) + " " + str(self.longest) + ".txt"

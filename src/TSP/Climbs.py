@@ -1,8 +1,8 @@
+import random as rnd
 from sys import maxsize
 
-from Supporting_Tools.Distance_check import distance_check
-from Supporting_Tools.Random_Permutation import random_permutation
-from Supporting_Tools.Swap import best_distance, next_distance
+from supporting_tools.distance_check import distance_check
+from supporting_tools.swap import best_distance, next_distance
 
 
 def hill_climb(optimization_goal, route, roads):
@@ -51,7 +51,7 @@ def repeated_climb(optimization_goal, route, roads, resets, steep=False):
     for distance in one_hill:
         story.append(distance)
     for i in range(0, resets):
-        route = list(random_permutation(route))
+        rnd.shuffle(route)
         if not steep:
             one_hill = hill_climb(optimization_goal, route, roads)
         else:
