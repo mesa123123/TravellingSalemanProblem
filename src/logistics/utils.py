@@ -1,3 +1,5 @@
+from typing import Optional
+
 from numpy import ndarray
 from numpy.random import default_rng
 
@@ -8,53 +10,47 @@ def create_route_network(num_cities: int, road_length_limit: float) -> Route_Net
     rnd = default_rng()
     city_weights: ndarray = rnd.uniform(low=1, high=road_length_limit, size=(num_cities, num_cities))
     route_network: Route_Network = [
-        Road(depature_city=i + 1, arrival_city=j + 1, route_length=round(city_weights[i][j], 3))
+        Road(departure_city=i + 1, arrival_city=j + 1, road_length=round(city_weights[i][j], 3))
         for i in range(num_cities)
         for j in range(i + 1, num_cities)
     ]
     return route_network
 
 
-def create_route(num_cities: int, network: Route_Network) -> Route:
-    pass
-
-
-def get_best_distance(route, roads):
-    alt_routes = [[] for i in range(1, int(len(roads)) - 2)]
-    while swap_member := 0 < int(len(roads)) - 3:
-        new_route = next_distance(route, swap_member, roads)
-        alt_routes[swap_member].append(new_route.roads)
-        alt_routes[swap_member].append(new_route.distances)
-        swap_member += 1
-    # sort the alternate by the distances
-    alt_routes = sorted(alt_routes, key=lambda x: x[1])
-    return alt_routes[0]
-
-
-def next_distance(routes: list[int], member: int, roads) -> Route:
-    route_copy: list[int] = routes.copy()
-    route_copy[member], route_copy[member + 1] = route_copy[member + 1], route_copy[member]
-    return Route(roads=route_copy, distances=distance_check(route_copy, roads))
-
-
-def distance_check(route, roads):
-    number_of_cities = int(len(roads)) - 1
-    distance = []
-    # append the distance from the hometown to the first stop
+def get_total_distance(route: Route) -> float:
     try:
-        distance.append(roads[1][route[0]])
-    except IndexError:
-        print("Error: ", route[0])
-    for i in range(1, number_of_cities - 1):
-        if i < number_of_cities - 1:
-            a = route[i - 1]
-            b = route[i]
-        else:
-            a = route[number_of_cities - 1]
-            b = route[0]
-        try:
-            distance.append(roads[a][b])
-        except IndexError:
-            print("Error: ", route[0])
-            print(i)
-    return sum(distance)
+        total_dist: float = sum([dest.arrived_by_road.road_length for dest in route])
+    except ValueError:
+        raise Exception("You've mucked up with the road lengths somewhere")
+    return total_dist
+
+
+def plot_route(route: Route, all_roads: Route_Network) -> Route:
+    sorted_route: Route = sorted(route, key=lambda d: d.visit_number)
+    sorted_route[0].arrived_by_road = None
+    for i in range(1, len(sorted_route)):
+        city_B = sorted_route[i].current_city
+        city_A = sorted_route[i - 1].current_city
+        connecting_road: Optional[Road] = next(
+            (road for road in all_roads if {road.departure_city, road.arrival_city} == {city_A, city_B}),
+            None,
+        )
+        if not connecting_road:
+            raise ValueError(f"There is a missing road in the route_network between city: {city_A} and city: {city_B}")
+        sorted_route[i].arrived_by_road = connecting_road
+    return sorted_route
+
+
+def get_best_swapped_route(route, roads) -> Route:
+    current_record: float = get_total_distance(route)
+    best_route: Route = route
+    while member := 0 < int(len(roads)) - 3:
+        new_route: Route = route.copy()
+        new_route[member].visit_number += 1
+        new_route[member + 1].visit_number -= 1
+        new_distance: float = get_total_distance(plot_route(new_route, roads))
+        if new_distance < current_record:
+            current_record = new_distance
+            best_route = new_route
+        member += 1
+    return best_route
