@@ -1,6 +1,6 @@
 import os
 
-def main(title):
+def create_dirs(title):
     if not os.path.exists("../Results"):
         os.makedirs("../Results")
     if not os.path.exists("../Results/" + title):

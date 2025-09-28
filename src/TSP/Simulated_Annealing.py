@@ -6,6 +6,14 @@ from Supporting_Tools.Random_Permutation import random_permutation
 from Supporting_Tools.Swap import best_distance, next_distance
 
 
+def cool(temp, final_temp):
+    return temp - final_temp
+
+
+def acceptance_probability(cost, temp):
+    return exp(-cost / temp)
+
+
 def simulated_annealing(route, roads, init_temp):
     current_best_distance = distance_check(route, roads)
     temp = init_temp
@@ -61,14 +69,6 @@ def steep_simulated_annealing(route, roads, init_temp, temp_reduction):
             route = explored
         temp = cool(temp, final_temp)
     return story
-
-
-def cool(temp, final_temp):
-    return temp - final_temp
-
-
-def acceptance_probability(cost, temp):
-    return exp(-cost / temp)
 
 
 def repeated_anneal(route, roads, init_temp, resets, steep=False):

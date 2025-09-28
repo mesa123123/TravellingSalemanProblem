@@ -3,7 +3,7 @@ from os.path import exists
 
 import numpy as np
 
-from src.Supporting_Tools.Random_Permutation import random_permutation
+from src.supporting_tools.random_permutation import random_permutation
 
 
 class ProblemMatrix:
