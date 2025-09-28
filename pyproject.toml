@@ -10,42 +10,41 @@ authors = [{ name = "Peter Bowman", email = "bowmanpete123@gmail.com" }]
 license = "MIT"
 requires-python = ">=3.13.0"
 dependencies = [
-  "matplotlib>=3.10.6",
-  "numpy",
-  "pandas>=2.3.2"
+    "matplotlib>=3.10.6",
+ "numpy",
+ "pandas>=2.3.2",
 ]
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [dependency-groups]
-dev = [
-  "ruff",
-  "ty",
-  "debugpy",
-  "pytest",
-  "docformatter",
-  "python-lsp-server",
+dev = ["ruff", "ty", "debugpy", "pytest", "docformatter", "python-lsp-server"]
+
+# --- PYLSP: LANGUAGE SERVER PATH FIX ---
+[tool.pylsp.settings.python.analysis]
+extraPaths = [
+    ".",
+    "./src",
+    "./genetic_algorithm_files",
+    "./supporting_tools",
 ]
 
-# --- Ruff (Linter/Formatter) ---
+# --- RUFF: LINTER SOURCE FIX ---
 [tool.ruff]
-src = ["src"]
+src = ["src", "genetic_algorithm_files", "supporting_tools", "."]
 line-length = 120
 target-version = "py313"
 select = ["E", "F", "W", "I"]
 
-# --- ty (Type Checker) ---
 [tool.ty.environment]
-root = ["./app"]
+root = ["."]
 
-# --- pytest (Testing Framework) ---
 [tool.pytest.ini_options]
-pythonpath = ["src"]
+pythonpath = ["src", "genetic_algorithm_files", "supporting_tools"]
 testpaths = ["tests"]
 norecursedirs = [".git", "venv", "docs"]
 
-# --- docformatter (Docstring Formatter) ---
 [tool.docformatter]
 line_length = 120
 pre_summary_newline = true
