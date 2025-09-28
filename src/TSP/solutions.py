@@ -1,8 +1,7 @@
 from src.genetic_algorithm_files.evolve_population import create_result, selection
 from src.genetic_algorithm_files.population import Population
-from src.supporting_tools.create_dirs import create_dirs
+from src.io.utils import create_dirs, create_travel_plots
 from src.supporting_tools.problem_matrix import ProblemMatrix
-from src.supporting_tools.see_salesman import plot_travels
 
 # The variables that control the outputs #
 run_total = 50
@@ -77,13 +76,13 @@ for i in range(1, run_total + 1):
     # Reset the genes back to their original set
     Current_Generation.genes = [i for i in First_Genes]
 # Plots Results of the Run Algorithm to a graph #
-plot_travels(best_journeys, best_graph_title, dir_title)
-plot_travels(worst_journeys, worst_graph_title, dir_title)
-plot_travels(average_journeys, average_graph_title, dir_title)
+create_travel_plots(best_journeys, best_graph_title, dir_title)
+create_travel_plots(worst_journeys, worst_graph_title, dir_title)
+create_travel_plots(average_journeys, average_graph_title, dir_title)
 # Displays the completed runs of the algorithm so the user doesn't get impatient
 # Plots the average, worst and best population scores for each generation on the graph
 for i in range(0, run_total):
-    plot_travels(
+    create_travel_plots(
         [best_journeys[i], worst_journeys[i], average_journeys[i]],
         "Run " + str(i + 1) + ", all stats",
         dir_title,
