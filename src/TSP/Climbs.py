@@ -1,13 +1,15 @@
 from sys import maxsize
-from Supporting_Tools.Random_Permutation import random_permutation
-from Supporting_Tools.Swap import 
+
 from Supporting_Tools.Distance_check import distance_check
+from Supporting_Tools.Random_Permutation import random_permutation
+from Supporting_Tools.Swap import best_distance, next_distance
+
 
 def hill_climb(optimization_goal, route, roads):
     current_best_distance = distance_check(route, roads)
     story = []
     story.append(distance_check(route, roads))
-    #if the current best distance is already optimal the loop will be skipped entirely
+    # if the current best distance is already optimal the loop will be skipped entirely
     while current_best_distance > optimization_goal:
         # keep tabs on the part of the list you're messing with
         swapped_member = 2
@@ -40,7 +42,7 @@ def steep_climb(optimization_goal, route, roads):
     return story
 
 
-def repeated_climb(optimization_goal, route, roads, resets, steep = False):
+def repeated_climb(optimization_goal, route, roads, resets, steep=False):
     story = []
     if not steep:
         one_hill = hill_climb(optimization_goal, route, roads)
@@ -57,6 +59,3 @@ def repeated_climb(optimization_goal, route, roads, resets, steep = False):
         for distance in one_hill:
             story.append(distance)
     return story
-
-
-

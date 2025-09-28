@@ -9,6 +9,11 @@ description = "This is an old university project I've refactored for a job inter
 authors = [{ name = "Peter Bowman", email = "bowmanpete123@gmail.com" }]
 license = "MIT"
 requires-python = ">=3.13.0"
+dependencies = [
+ "matplotlib>=3.10.6",
+ "numpy",
+ "pandas>=2.3.2",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

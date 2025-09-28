@@ -1,0 +1,10 @@
+Metadata-Version: 2.4
+Name: travelling_salesman_problem
+Version: 0.2.0
+Summary: This is an old university project I've refactored for a job interview
+Author-email: Peter Bowman <bowmanpete123@gmail.com>
+License-Expression: MIT
+Requires-Python: >=3.13.0
+Requires-Dist: matplotlib>=3.10.6
+Requires-Dist: numpy
+Requires-Dist: pandas>=2.3.2
