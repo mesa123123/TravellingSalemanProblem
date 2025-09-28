@@ -1,3 +1,4 @@
-Genetic_Algorithm_Files
-Supporting_Tools
-TSP
+genetic_algorithm_files
+logistics
+supporting_tools
+tsp

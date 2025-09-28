@@ -16,5 +16,10 @@ class Destination:
     arrived_by_road: Optional[Road] = None
 
 
-type Route_Network = list[Road]
-type Route = list[Destination]
+@dataclass
+class Route:
+    route_plot: list[Destination]
+    route_score: float
+
+
+type Road_Network = list[Road]
