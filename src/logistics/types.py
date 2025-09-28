@@ -12,7 +12,8 @@ class Road:
 class Destination:
     visit_number: int
     current_city: int
-    travelled_route: Road
+    arrived_by_road: Road
 
 
+type Route_Network = list[Road]
 type Route = list[Destination]
