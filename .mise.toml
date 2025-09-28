@@ -1,5 +1,5 @@
 [tools]
-python = "3.13.0" # [optional] will be used for the venv
+python = "3.12"
 uv = 'latest'
 [env]
 PROJECT_NAME = "{{ config_root | basename }}"
