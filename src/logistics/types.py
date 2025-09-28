@@ -1,18 +1,19 @@
 from dataclasses import dataclass
+from typing import Optional
 
 
 @dataclass
 class Road:
-    depature_city: int
+    departure_city: int
     arrival_city: int
-    route_length: float
+    road_length: float
 
 
 @dataclass
 class Destination:
     visit_number: int
     current_city: int
-    arrived_by_road: Road
+    arrived_by_road: Optional[Road] = None
 
 
 type Route_Network = list[Road]
