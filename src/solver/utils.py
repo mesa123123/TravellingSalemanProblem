@@ -28,20 +28,18 @@ def get_good_enough_nearest_neighbour_swap(target: float, route: Route, road_net
     return route
 
 
-def repeated_climb(optimization_goal, route, roads, resets, steep=False):
-    story = []
-    if not steep:
-        one_hill = hill_climb(optimization_goal, route, roads)
-    else:
-        one_hill = steep_climb(optimization_goal, route, roads)
-    for distance in one_hill:
-        story.append(distance)
-    for i in range(0, resets):
-        rnd.shuffle(route)
-        if not steep:
-            one_hill = hill_climb(optimization_goal, route, roads)
-        else:
-            one_hill = steep_climb(optimization_goal, route, roads)
-        for distance in one_hill:
-            story.append(distance)
-    return story
+def repeated_climb(
+    target: float, route: Route, road_network: RoadNetwork, resets: int, best_route: Route | None, steep: bool = False
+) -> Route:
+    best_route: Route = route if not best_route else best_route
+    new_route: Route = (
+        get_best_nearest_neighbour_swap(route, road_network)
+        if steep
+        else get_good_enough_nearest_neighbour_swap(target, route, road_network)
+    )
+    if new_route.route_score < best_route.route_score:
+        best_route: Route = new_route
+    if resets > 0:
+        fresh_route: Route = plot_route(road_network)
+        return repeated_climb(target, fresh_route, road_network, resets - 1, best_route, steep)
+    return best_route
