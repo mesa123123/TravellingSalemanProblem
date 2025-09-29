@@ -1,4 +1,0 @@
-genetic_algorithm_files
-logistics
-supporting_tools
-tsp
