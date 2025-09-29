@@ -1,16 +1,3 @@
-from random import randint
-
-
-def gene_crossover(p1, p2, only_child=False, first=0, second=0, style="partially_mapped"):
-    # determines where the cuts in the genomes will be
-    # first cut has to be more than 0, and second cut has to be less than length-1
-    if first == 0 and second == 0:
-        first_cut = randint(1, len(p1)//2 - 1)
-        second_cut = randint(len(p1)//2, len(p1)-1)
-    else:
-        first_cut = first
-        second_cut = second
-    # Makes the cuts in the parents genomes and makes the swaps within the child genomes
     if style != "cycle":
         cut_genome = gene_switch(p1, p2, first_cut, second_cut)
         c1 = [cut_genome[0][i] for i in range(0, len(cut_genome[0]))]
@@ -21,10 +8,7 @@ def gene_crossover(p1, p2, only_child=False, first=0, second=0, style="partially
     # Makes the cross-over based on the selected style of crossover
     children = style_selection(style, p1, p2, c1, c2, first_cut, second_cut)
     # If we want the parents to create one or two child genomes
-    if only_child:
-        return children[0]
-    else:
-        return children
+    return children[0] if only_child else children
 
 
 def style_selection(style, p1, p2, c1, c2, first_cut, second_cut):
@@ -38,6 +22,18 @@ def style_selection(style, p1, p2, c1, c2, first_cut, second_cut):
         child_1 = cycle_crossover(list(p1), list(p2))
         child_2 = cycle_crossover(list(p2), list(p1))
     return [child_1, child_2]
+
+
+def order_reproduction_style(population, road_network):
+    pass
+
+
+def partially_mapped_reproduction_style():
+    pass
+
+
+def crossover_reproduction_style():
+    pass
 
 
 # Completes a partially mapped crossover
@@ -79,14 +75,14 @@ def order_crossover(c, p, first_cut, second_cut):
                 j = 0
         i += 1
         if i == len(p):
-                i = 0
+            i = 0
         if i == second_cut:
             rearrange = False
     return c
 
 
 def cycle_crossover(p1, p2):
-    child = [0]*len(p1)
+    child = [0] * len(p1)
     cycle_list = list()
     cycle_list.append(p1[0])
     current_select = p1[0]
@@ -95,8 +91,8 @@ def cycle_crossover(p1, p2):
     while current_select != p1[0]:
         cycle_list.append(p2[list.index(p1, current_select)])
         current_select = cycle_list[-1]
-    for i in range(0,len(cycle_list)-1):
-        index_of_interest = list.index(p1,cycle_list[i])
+    for i in range(0, len(cycle_list) - 1):
+        index_of_interest = list.index(p1, cycle_list[i])
         child[index_of_interest] = p1[index_of_interest]
     for i in range(0, len(child)):
         if child[i] == 0:
@@ -106,8 +102,8 @@ def cycle_crossover(p1, p2):
 
 # function that allows the genes within the cut to switch over in their children
 def gene_switch(p1, p2, first_cut, second_cut):
-    c1 = [0]*len(p1)
-    c2 = [0]*len(p2)
+    c1 = [0] * len(p1)
+    c2 = [0] * len(p2)
     # Populate the children genomes through the crossover at two arbitrary points; perhaps we could arbitrary an
     # un-arbitrary these points?
     for i in range(first_cut, second_cut):
@@ -122,16 +118,13 @@ def gene_switch(p1, p2, first_cut, second_cut):
     return [c1, c2]
 
 
-# these were used in testing purposes
-# p1 = [1,2,3,4,5,6,7,8,9]
-# p2 = [2,4,5,8,7,1,3,9,6]
-#
-# children = gene_crossover(p1, p2, only_child=False, first=0, second=0, style="cycle")
-# print(p1, " p1")
-# print(p2, " p2")
-# print(children[0], " c1")
-# print(children[1], " c2")
-# children[0].sort()
-# children[1].sort()
-# print(children[0])
-# print(children[1])
+def order_reproduction_style():
+    pass
+
+
+def partially_mapped_reproduction_style():
+    pass
+
+
+def crossover_reproduction_style():
+    pass

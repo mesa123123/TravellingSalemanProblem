@@ -36,3 +36,18 @@ def create_travel_plots(journeys, title, dir_title):
     pyl.title(title)
     pyl.savefig("../Results/" + dir_title + "/Performance Graphs/Graph " + title + ".png", bbox_inches="tight")
     pyl.gcf().clear()
+
+
+def save_population_scores(output_file, optimal_route, worst_route, average_of_population, generation):
+    output_file.write("Best: ")
+    for i in range(0, generation):
+        output_file.write("{}, ".format(optimal_route[i]))
+    output_file.write("\n-----------------------------------------------------------------------------------\n")
+    output_file.write("Worst: ")
+    for i in range(0, generation):
+        output_file.write("{}, ".format(worst_route[i]))
+    output_file.write("\n-----------------------------------------------------------------------------------\n")
+    output_file.write("Average: ")
+    for i in range(0, generation):
+        output_file.write("{}, ".format(average_of_population[i]))
+    output_file.write("\n-----------------------------------------------------------------------------------\n")

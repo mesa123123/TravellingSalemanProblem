@@ -5,7 +5,7 @@ from typing import Callable, List, TypeVar
 
 from logistics.types import RoadNetwork, Route
 from logistics.utils import plot_route
-from solver.mutations.utils import (
+from solver.genetics.mutations.utils import (
     displacement_mutation,
     insertion_mutation,
     inversion_mutation,

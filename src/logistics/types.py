@@ -22,11 +22,4 @@ class Route:
     route_score: float
 
 
-@dataclass
-class RoutePopulation:
-    population_size: int
-    num_of_cities: int
-    routes: list[Route]
-
-
 type RoadNetwork = list[Road]

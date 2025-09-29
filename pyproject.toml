@@ -19,50 +19,20 @@ dev = ["ruff", "ty", "debugpy", "pytest", "docformatter", "python-lsp-server"]
 
 # --- PYLSP: LANGUAGE SERVER PATH FIX ---
 [tool.pylsp.settings.python.analysis]
-extraPaths = [
-  ".",
-  "./src",
-  "./genetic_algorithm_files",
-  "./supporting_tools",
-  "./src/logistics/",
-  "./src/solver/",
-]
+extraPaths = [".", "./src", "./src/logistics/", "./src/solver/", "./src/io/"]
 
 # --- RUFF: LINTER SOURCE FIX ---
 [tool.ruff]
-src = [
-  "src",
-  "genetic_algorithm_files",
-  "supporting_tools",
-  "logistics",
-  "io",
-  "solver",
-  ".",
-]
+src = ["src", "logistics", "io", "solver", "."]
 line-length = 120
 target-version = "py313"
 select = ["E", "F", "W", "I"]
 
 [tool.ty.environment]
-root = [
-  "src",
-  "genetic_algorithm_files",
-  "supporting_tools",
-  "logistics",
-  "io",
-  "solver",
-  ".",
-]
+root = ["src", "logistics", "io", "solver", "."]
 
 [tool.pytest.ini_options]
-pythonpath = [
-  ".",
-  "./src",
-  "./genetic_algorithm_files",
-  "./supporting_tools",
-  "./src/logistics/",
-  "./src/solver/",
-]
+pythonpath = [".", "./src", "./src/logistics/", "./src/solver/"]
 testpaths = ["tests"]
 norecursedirs = [".git", "venv", "docs"]
 
