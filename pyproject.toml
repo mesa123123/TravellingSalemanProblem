@@ -9,11 +9,7 @@ description = "This is an old university project I've refactored for a job inter
 authors = [{ name = "Peter Bowman", email = "bowmanpete123@gmail.com" }]
 license = "MIT"
 requires-python = ">=3.12"
-dependencies = [
-"matplotlib",
- "numpy",
- "pandas"
-]
+dependencies = ["matplotlib", "numpy", "pandas"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -29,20 +25,44 @@ extraPaths = [
   "./genetic_algorithm_files",
   "./supporting_tools",
   "./src/logistics/",
+  "./src/solver/",
 ]
 
 # --- RUFF: LINTER SOURCE FIX ---
 [tool.ruff]
-src = ["src", "genetic_algorithm_files", "supporting_tools", "logistics", "."]
+src = [
+  "src",
+  "genetic_algorithm_files",
+  "supporting_tools",
+  "logistics",
+  "io",
+  "solver",
+  ".",
+]
 line-length = 120
 target-version = "py313"
 select = ["E", "F", "W", "I"]
 
 [tool.ty.environment]
-root = ["."]
+root = [
+  "src",
+  "genetic_algorithm_files",
+  "supporting_tools",
+  "logistics",
+  "io",
+  "solver",
+  ".",
+]
 
 [tool.pytest.ini_options]
-pythonpath = ["src", "genetic_algorithm_files", "supporting_tools"]
+pythonpath = [
+  ".",
+  "./src",
+  "./genetic_algorithm_files",
+  "./supporting_tools",
+  "./src/logistics/",
+  "./src/solver/",
+]
 testpaths = ["tests"]
 norecursedirs = [".git", "venv", "docs"]
 

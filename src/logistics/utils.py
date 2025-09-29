@@ -21,7 +21,7 @@ def create_route(road_network: RoadNetwork) -> Route:
     rnd = default_rng()
     rnd_route = rnd.permutation(len(road_network) + 1)
     destinations = [Destination(visit_number=i, current_city=rnd_route[i]) for i in range(len(road_network))]
-    return Route(route_plot=destinations, route_score=-0.0)
+    return Route(itinerary=destinations, route_score=-0.0)
 
 
 def _score_distances(destinations: list[Destination], road_network: RoadNetwork) -> list[Destination]:
@@ -41,11 +41,10 @@ def _score_distances(destinations: list[Destination], road_network: RoadNetwork)
 
 def plot_route(road_network: RoadNetwork, route: Optional[Route] = None) -> Route:
     route: Route = route if route else create_route(road_network)
-    destinations: list[Destination] = sorted(route.route_plot, key=lambda d: d.visit_number)
+    destinations: list[Destination] = sorted(route.itinerary, key=lambda d: d.visit_number)
     destinations: list[Destination] = _score_distances(destinations, road_network)
     total_dist: float = sum([dest.arrived_by_road.road_length for dest in destinations])
     return Route(destinations, total_dist)
-
 
 def create_route_population(population_size: int, road_network: RoadNetwork) -> RoutePopulation:
     pop: RoutePopulation = RoutePopulation(
@@ -55,16 +54,3 @@ def create_route_population(population_size: int, road_network: RoadNetwork) -> 
     )
     pop.routes = sorted(pop.routes, key=lambda x: x.route_score)
     return pop
-
-
-def get_best_swapped_route(route, roads) -> Route:
-    best_route: Route = route
-    while member := 0 < int(len(roads)) - 3:
-        new_route: Route = route.copy()
-        new_route[member].visit_number += 1
-        new_route[member + 1].visit_number -= 1
-        new_route_scored: Route = plot_route(new_route, roads)
-        if new_route_scored.route_score < best_route.route_score:
-            best_route = new_route_scored
-        member += 1
-    return best_route

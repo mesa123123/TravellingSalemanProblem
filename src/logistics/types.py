@@ -18,7 +18,7 @@ class Destination:
 
 @dataclass
 class Route:
-    route_plot: list[Destination]
+    itinerary: list[Destination]
     route_score: float
 
 
