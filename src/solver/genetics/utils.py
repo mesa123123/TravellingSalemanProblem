@@ -4,7 +4,7 @@ import random as rnd
 from logistics.types import RoadNetwork
 from logistics.utils import plot_route
 from solver.genetics.mutations.interface import Mutation, mutate
-from solver.genetics.reproduction.interface import ReproductionMethod, reproduce
+from solver.genetics.reproduction.interface import ReproductionMethod, ReproductionStyle, reproduce
 from solver.genetics.types import RoutePopulation
 
 
@@ -31,7 +31,6 @@ def sort_population_by_random(population: RoutePopulation) -> RoutePopulation:
 def create_next_generation(
     population: RoutePopulation,
     road_network: RoadNetwork,
-    sort_rank: bool,
     reproduction: ReproductionMethod,
     reproduciton_style: ReproductionStyle,
     mutation_technique: Mutation,
@@ -47,6 +46,7 @@ def create_next_generation(
         ngen_pop.routes = [
             mutate(route, road_network, mutation_technique, mutation_chance) for route in ngen_pop.routes
         ]
+    # Do the Selection Here
     return ngen_pop
 
 

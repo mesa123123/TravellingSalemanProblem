@@ -1,7 +1,7 @@
 import copy
 import random as rnd
 from enum import StrEnum
-from typing import Callable, List, Literal, TypeVar
+from typing import Callable, List, TypeVar
 
 from logistics.types import Road, RoadNetwork
 from logistics.utils import plot_route
@@ -23,17 +23,17 @@ class ReproductionStyle(StrEnum):
 
 
 class ReproductionMethod(StrEnum):
-    RANK: Literal["rank"] = "rank"
-    RANDOM: Literal["random"] = "random"
+    RANK = "rank"
+    RANDOM = "random"
 
 
-REPRODUCTION_METHOD_FUNCTIONS: dict[ReproductionMethod, Callable[[T, float], T]] = {
+REPRODUCTION_METHOD_FUNCTIONS: dict[ReproductionMethod, Callable] = {
     ReproductionMethod.RANK: sort_population_by_route_score,
     ReproductionMethod.RANDOM: sort_population_by_random,
 }
 
 
-REPRODUCTION_STYLE_FUNCTIONS: dict[ReproductionStyle, Callable[[T, float], T]] = {
+REPRODUCTION_STYLE_FUNCTIONS: dict[ReproductionStyle, Callable] = {
     ReproductionStyle.PARTIALLY_MAPPED: partially_mapped_reproduction_style,
     ReproductionStyle.ORDER: order_reproduction_style,
     ReproductionStyle.CROSSOVER: crossover_reproduction_style,
@@ -47,9 +47,8 @@ def reproduce(
     selection: ReproductionMethod,
     style: ReproductionStyle = "partially_mapped",
 ) -> RoutePopulation:
-    reproduction_method_func: Callable[[T, float], T] = REPRODUCTION_METHOD_FUNCTIONS.get(selection)
-    # This is what we're replacing children = style_selection(style, p1, p2, c1, c2, first_cut, second_cut)
-    reproduction_style_func: Callable[[T, float], T] = REPRODUCTION_STYLE_FUNCTIONS.get(selection)
+    reproduction_method_func = REPRODUCTION_METHOD_FUNCTIONS.get(selection)
+    reproduction_style_func = REPRODUCTION_STYLE_FUNCTIONS.get(selection)
     reproduction_method_func(population)
     offspring = copy.deepcopy(population)
     for route in offspring.routes:
