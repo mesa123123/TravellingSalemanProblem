@@ -1,7 +1,7 @@
 import copy
 import random as rnd
 from enum import StrEnum
-from typing import Callable, List, TypeVar
+from typing import Callable
 
 from logistics.types import RoadNetwork, Route
 from logistics.utils import plot_route
@@ -13,8 +13,6 @@ from solver.genetics.mutations.utils import (
     swap_mutation,
 )
 
-T = TypeVar("T", bound=List)
-
 
 class Mutation(StrEnum):
     SWAP = "swap"
@@ -24,7 +22,7 @@ class Mutation(StrEnum):
     DISPLACEMENT = "displacement"
 
 
-MUTATION_FUNCTIONS: dict[Mutation, Callable[[T, float], T]] = {
+MUTATION_FUNCTIONS: dict[Mutation, Callable] = {
     Mutation.SWAP: swap_mutation,
     Mutation.INSERT: insertion_mutation,
     Mutation.SCRAMBLE: scramble_mutation,
@@ -35,7 +33,7 @@ MUTATION_FUNCTIONS: dict[Mutation, Callable[[T, float], T]] = {
 
 def mutate(route: Route, road_network: RoadNetwork, mutation: Mutation, mutation_chance: int = 50) -> Route:
     mutate: int = rnd.randint(0, 100)
-    mutation_func: Callable[[T, float], T] | None = MUTATION_FUNCTIONS.get(mutation)
+    mutation_func: Callable | None = MUTATION_FUNCTIONS.get(mutation)
     if mutate <= mutation_chance and mutation_func:
         mutated_route: Route = copy.deepcopy(route)
         mutation_map: dict[int, int] = mutation_func(len(route.itinerary))

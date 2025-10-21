@@ -3,7 +3,8 @@ from typing import Optional
 from numpy import ndarray
 from numpy.random import default_rng
 
-from src.logistics.types import Destination, Road, RoadNetwork, Route, RoutePopulation
+from src.logistics.types import Destination, Road, RoadNetwork, Route
+from src.solver.genetics.types import RoutePopulation
 
 
 def create_road_network(num_cities: int, road_length_limit: float) -> RoadNetwork:
@@ -40,11 +41,12 @@ def _score_distances(destinations: list[Destination], road_network: RoadNetwork)
 
 
 def plot_route(road_network: RoadNetwork, route: Optional[Route] = None) -> Route:
-    route: Route = route if route else create_route(road_network)
+    route= route if route else create_route(road_network)
     destinations: list[Destination] = sorted(route.itinerary, key=lambda d: d.visit_number)
     destinations: list[Destination] = _score_distances(destinations, road_network)
     total_dist: float = sum([dest.arrived_by_road.road_length for dest in destinations])
     return Route(destinations, total_dist)
+
 
 def create_route_population(population_size: int, road_network: RoadNetwork) -> RoutePopulation:
     pop: RoutePopulation = RoutePopulation(
