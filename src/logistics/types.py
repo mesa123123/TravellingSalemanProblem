@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 from typing import Optional
 
+type Itinerary = list[Destination]
+type RoadNetwork = list[Road]
+
 
 @dataclass
 class Road:
@@ -18,8 +21,5 @@ class Destination:
 
 @dataclass
 class Route:
-    itinerary: list[Destination]
+    itinerary: Itinerary
     route_score: float
-
-
-type RoadNetwork = list[Road]

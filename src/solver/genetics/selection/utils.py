@@ -1,23 +1,20 @@
+from math import ceil, floor
+
+from logistics.types import Route
+from src.solver.genetics.types import RoutePopulation
+
 
 # keeps the best of parents and then adds all of the children except the worst
-def elitism(population, child_genes):
-    output = list()
-    output.append(population.genes[0])
-    for i in range(0, len(population.genes) - 1):
-        output.append(child_genes.genes[i])
-    return output
+def young_elitism(parent_pop, children_pop):
+    pop_size: int = parent_pop.population_size
+    new_routes: list[Route] = parent_pop.routes[0] + [children_pop.routes[i] for i in range(0, pop_size - 1)]
+    return RoutePopulation(pop_size, parent_pop.num_of_cities, new_routes)
 
 
 # Returns the top 10 of either the children and the parents or just returns the children
-def on_fitness(parent_pop, child_pop, aging=False):
-    output = list()
-    if aging:
-        for i in range(0, len(parent_pop.genes) // 2):
-            output.append(child_pop.genes[i])
-            output.append(child_pop.genes[i])
-    else:
-        for i in range(0, len(child_pop.genes)):
-            output.append(child_pop.genes[i])
-            output.append(parent_pop.genes[i])
-    return output
-
+def top_ten_both_generations(parent_pop, children_pop):
+    pop_size: int = parent_pop.population_size
+    new_routes: list[Route] = [parent_pop.routes[i] for i in range(0, floor(pop_size / 2))] + [
+        children_pop.routes[i] for i in range(0, ceil(pop_size / 2))
+    ]
+    return RoutePopulation(pop_size, parent_pop.num_of_cities, new_routes)

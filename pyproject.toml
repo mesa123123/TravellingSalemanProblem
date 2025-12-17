@@ -14,25 +14,26 @@ dependencies = ["matplotlib", "numpy", "pandas"]
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[dependency-groups]
+[dependency-groups] # Standardized key is [project.optional-dependencies]
 dev = ["ruff", "ty", "debugpy", "pytest", "docformatter", "python-lsp-server"]
 
-# --- PYLSP: LANGUAGE SERVER PATH FIX ---
-[tool.pylsp.settings.python.analysis]
-extraPaths = [".", "./src", "./src/logistics/", "./src/solver/", "./src/io/"]
-
-# --- RUFF: LINTER SOURCE FIX ---
+# --- RUFF: LINTER CONFIGURATION ---
 [tool.ruff]
-src = ["src", "logistics", "io", "solver", "."]
+src = ["src"]            # Only need to list top-level source dir
 line-length = 120
-target-version = "py313"
+target-version = "py312" # Consistent with [project] requires-python
+
+[tool.ruff.lint] # <-- NEW: Correct, non-deprecated location
 select = ["E", "F", "W", "I"]
 
+# --- TY: Type Checker Config (Simplify to debug) ---
 [tool.ty.environment]
-root = ["src", "logistics", "io", "solver", "."]
+root = ["src"] # Simplified path
 
 [tool.pytest.ini_options]
-pythonpath = [".", "./src", "./src/logistics/", "./src/solver/"]
+pythonpath = [
+  "src",
+] # Simplified path, assuming 'src' contains all top-level modules
 testpaths = ["tests"]
 norecursedirs = [".git", "venv", "docs"]
 

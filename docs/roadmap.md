@@ -3,7 +3,7 @@
 ### Work In Progress
 
 1. Refactor
-    1. io package (*)
+    1. io package (\*)
     2. logistics_package (/)
     3. solvers - climbs (/)
     4. solvers - genetics (d)
