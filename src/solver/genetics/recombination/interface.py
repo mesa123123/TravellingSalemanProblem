@@ -30,12 +30,13 @@ RECOMBINATION_STYLE_FUNCTIONS: dict[str, Callable] = {
 
 def _run_recombination(routes, index, recombination_style_func):
     itin_length = len(routes[0].itinerary)
-    return recombination_style_func(
-        parent_1=routes[index].itinerary,
-        parent_2=routes[index + 1].itinerary,
-        detour_1=rnd.randint(1, (itin_length // 2) - 1),
-        detour_2=rnd.randint((itin_length // 2) - 1, itin_length),
-    )
+    parent_1 = (routes[index].get_full_itinerary(),)
+    parent_2 = (routes[index + 1].get_full_intinerary(),)
+    detour_1 = (rnd.randint(1, (itin_length // 2) - 1),)
+    detour_2 = (rnd.randint((itin_length // 2) - 1, itin_length),)
+    child_1_path = recombination_style_func(parent_1, parent_2, detour_1, detour_2)
+    child_2_path = recombination_style_func(parent_2, parent_1, detour_1, detour_2)
+    return (child_1_path, child_2_path)
 
 
 def reproduce(
@@ -53,8 +54,8 @@ def reproduce(
     offspring: RoutePopulation = copy.deepcopy(sorted_population)
     routes = copy.deepcopy(offspring.routes)
     for i in range(0, len(routes), 2):
-        offspring.routes[i].itinerary, offspring.routes[i + 1].itinerary = _run_recombination(
-            routes, i, recombination_style_func
-        )
+        child_in_paths = _run_recombination(routes, i, recombination_style_func)
+        offspring.routes[i].set_full_itinerary(child_in_paths[0])
+        offspring.routes[i + 1].set_full_itinerary(child_in_paths[1])
     offspring.routes = [plot_route(road_network, route) for route in offspring.routes]
     return offspring
