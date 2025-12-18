@@ -23,3 +23,6 @@ class Destination:
 class Route:
     itinerary: Itinerary
     route_score: float
+
+    def full_itinerary(self):
+        return {dest.visit_number: dest.current_city for dest in self.itinerary}
