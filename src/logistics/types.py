@@ -24,5 +24,8 @@ class Route:
     itinerary: Itinerary
     route_score: float
 
-    def full_itinerary(self):
+    def get_full_itinerary(self) -> dict[int, int]:
         return {dest.visit_number: dest.current_city for dest in self.itinerary}
+
+    def set_full_itinerary(self, in_path: dict[int, int]) -> None:
+        self.itinerary = [Destination(visit_number=k, current_city=v) for k, v in in_path.items()]
