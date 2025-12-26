@@ -7,9 +7,10 @@
     2. logistics_package (/)
     3. solvers - climbs (/)
     4. solvers - genetics (d)
-        1. Sort Reproduction Interface (d)
-        2. Sort Selection Process (d)
-        3. Finalize Genetic Process (d)
+        1. Sort Reproduction Interface (t)
+        2. Sort Selection Process (t)
+        3. Refactor Reproduction Selection Styles (d)
+        4. Finalize Reproduction Styles (/)
 2. Web Interface
     a. front-end html (\*)
     b. fast-api routes (\*)
