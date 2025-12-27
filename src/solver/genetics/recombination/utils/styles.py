@@ -1,3 +1,5 @@
+from itertools import islice
+
 type InPath = dict[int, int]
 
 
@@ -14,10 +16,25 @@ def order_recombination_style(parent_1: InPath, parent_2: InPath, detour_1: int,
     return full_genes
 
 
+# MARK: this needs to be redone
+def _follow_map_chain(value: int, genes_map: dict[int, int]):
+    visited = []
+    while value in genes_map and value not in visited:
+        visited.append(value)
+        value = genes_map[value]
+    return value
+
+
 def partially_mapped_recombination_style(parent_1: InPath, parent_2: InPath, detour_1: int, detour_2: int) -> InPath:
     swapped_genes = _swapped_genes(parent_2, detour_1, detour_2)
-    remaining_genes = [v for v in parent_1.values() if v not in swapped_genes.values()]
-    return {k: (remaining_genes.pop() if k == 0 else v) for k, v in swapped_genes.items()}
+    raw_genes_map: dict[int, int] = {
+        v2: v1 for v1, v2 in islice(zip(parent_1.values(), parent_2.values()), detour_1, detour_2)
+    }
+    genes_map: dict[int, int] = {k: _follow_map_chain(v, raw_genes_map) for k, v in raw_genes_map.items()}
+    p1_remaining_values = list(parent_1.values())
+    remaining_genes_raw: list[int] = p1_remaining_values[:detour_1] + p1_remaining_values[detour_2:]
+    remaining_genes = [genes_map[v] if v in genes_map.keys() else v for v in remaining_genes_raw]
+    return {k: (remaining_genes.pop(0) if v == 0 else v) for k, v in swapped_genes.items()}
 
 
 def crossover_recombination_style(parent_1: InPath, parent_2: InPath, detour_1: int, detour_2: int) -> InPath:
