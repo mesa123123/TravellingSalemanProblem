@@ -15,7 +15,15 @@ dependencies = ["matplotlib", "numpy", "pandas"]
 where = ["src"]
 
 [dependency-groups] # Standardized key is [project.optional-dependencies]
-dev = ["ruff", "ty", "debugpy", "pytest", "docformatter", "python-lsp-server"]
+dev = [
+    "ruff",
+ "ty",
+ "debugpy",
+ "pytest",
+ "docformatter",
+ "python-lsp-server",
+ "pytest-kedge>=0.1.1",
+]
 
 # --- RUFF: LINTER CONFIGURATION ---
 [tool.ruff]

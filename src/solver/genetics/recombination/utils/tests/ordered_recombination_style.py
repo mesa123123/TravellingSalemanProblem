@@ -1,9 +1,5 @@
-from dataclasses import dataclass
-from typing import Type
 
-import pytest
-
-from conftest import TestCase, TestDataBase, TestParameters
+from pytest_kedge import TestCase, TestSuite
 from src.solver.genetics.recombination.utils.styles import InPath, order_recombination_style
 
 
@@ -48,6 +44,18 @@ happy_params: TestParameters = TestParameters(
                 expected={1: 3, 2: 1, 3: 2, 4: 5, 5: 4},
             ),
         ),
+        TestCase(
+            id="small_route_long_conflict",
+            data=OrderedRecombinationTestData(
+                parent_1={1: 3, 2: 4, 3: 1, 4: 2, 5: 5},
+                parent_2={1: 5, 2: 3, 3: 2, 4: 5, 5: 1},
+                # {1:3, 2:2, 3:1, 4:5, 5:4}
+                # {1:5, 2:3, 3:2, 4:1, 5:1}
+                detour_1=2,
+                detour_2=4,
+                expected={1: 5, 2: 3, 3: 2, 4: 5, 5: 4},
+            ),
+        ),
     ]
 )
 
@@ -64,15 +72,4 @@ sad_params: TestParameters = TestParameters(
             ),
         )
     ]
-)
 
-
-@pytest.mark.parametrize(happy_params.get_param_string(), happy_params.get_test_data(), ids=happy_params.get_test_ids())
-def test_happy_paths(parent_1: InPath, parent_2: InPath, detour_1: int, detour_2: int, expected: InPath) -> None:
-    assert order_recombination_style(parent_1, parent_2, detour_1, detour_2) == expected
-
-
-@pytest.mark.parametrize(sad_params.get_param_string(), sad_params.get_test_data(), ids=sad_params.get_test_ids())
-def test_sad_paths(parent_1: InPath, parent_2: InPath, detour_1: int, detour_2: int, expected: type[Exception]) -> None:
-    with pytest.raises(expected):
-        order_recombination_style(parent_1, parent_2, detour_1, detour_2)

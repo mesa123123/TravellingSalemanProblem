@@ -664,6 +664,18 @@ wheels = [
 ]
 
 [[package]]
+name = "pytest-kedge"
+version = "0.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/29/3d/4a462aed146cc1c99da9452554eb55a3659ea9943ddc48067443728f02e1/pytest_kedge-0.1.1.tar.gz", hash = "sha256:7e7337a5111dc5df764b295b40aa6d3b9d9ab803999c9123ba7eb1ca299aee87", size = 15147, upload-time = "2026-01-10T07:24:29.735Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/fa/be/7b04d97a68e03cc6fb36b94e23d1b29e69f3ddb746538208f4434cceed05/pytest_kedge-0.1.1-py3-none-any.whl", hash = "sha256:43168d0f79bf9e9a05533b8795f7678911d6211bebfae92315b9c8cd0a090b8f", size = 16461, upload-time = "2026-01-10T07:24:28.281Z" },
+]
+
+[[package]]
 name = "python-dateutil"
 version = "2.9.0.post0"
 source = { registry = "https://pypi.org/simple" }
@@ -772,6 +784,7 @@ dev = [
     { name = "debugpy" },
     { name = "docformatter" },
     { name = "pytest" },
+    { name = "pytest-kedge" },
     { name = "python-lsp-server" },
     { name = "ruff" },
     { name = "ty" },
@@ -789,6 +802,7 @@ dev = [
     { name = "debugpy" },
     { name = "docformatter" },
     { name = "pytest" },
+    { name = "pytest-kedge", specifier = ">=0.1.1" },
     { name = "python-lsp-server" },
     { name = "ruff" },
     { name = "ty" },

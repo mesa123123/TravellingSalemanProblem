@@ -65,13 +65,3 @@ sad_params: TestParameters = TestParameters(
     ]
 )
 
-
-@pytest.mark.parametrize(happy_params.get_param_string(), happy_params.get_test_data(), ids=happy_params.get_test_ids())
-def test_happy_paths(parent_1: InPath, parent_2: InPath, detour_1: int, detour_2: int, expected: InPath) -> None:
-    assert partially_mapped_recombination_style(parent_1, parent_2, detour_1, detour_2) == expected
-
-
-@pytest.mark.parametrize(sad_params.get_param_string(), sad_params.get_test_data(), ids=sad_params.get_test_ids())
-def test_sad_paths(parent_1: InPath, parent_2: InPath, detour_1: int, detour_2: int, expected: type[Exception]) -> None:
-    with pytest.raises(expected):
-        partially_mapped_recombination_style(parent_1, parent_2, detour_1, detour_2)
