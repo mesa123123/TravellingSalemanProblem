@@ -2,7 +2,7 @@ from pytest_kedge import TestCase, TestSuite
 
 from src.solver.genetics.recombination.utils.styles import partially_mapped_recombination_style
 
-partially_mapped_recombination_style = TestSuite(
+test_sutie_partially_mapped_recombination_style = TestSuite(
     target=partially_mapped_recombination_style,
     scenarios=[
         TestCase(
@@ -17,7 +17,7 @@ partially_mapped_recombination_style = TestSuite(
             test_failure_message="Using a small route with duplicates an error occured",
         ),
         TestCase(
-            name="small_route_with_duplicates",
+            name="empty_route_with_duplicates",
             input={
                 "parent_1": {},
                 "parent_2": {},
